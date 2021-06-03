@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,9 @@ public class Compte {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
+	@Column(unique = true,nullable = false)
 	private int numero ;
+	@Column(nullable = false)
 	private BigDecimal solde ;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)

@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Type",length=4)
-public class Virement {
+public abstract class Virement {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
 package com.spring.ebanking.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
+	@Column(unique = true,nullable = false)
 	private String role;
 	
 	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

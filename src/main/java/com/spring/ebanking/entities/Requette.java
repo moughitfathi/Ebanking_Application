@@ -2,6 +2,7 @@ package com.spring.ebanking.entities;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class Requette {
 
 	private Long id;
+	@Column(nullable  = false)
 	private Date dateRequette;
 	private Boolean etat;
 	@ManyToOne

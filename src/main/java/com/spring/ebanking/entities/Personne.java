@@ -23,6 +23,17 @@ import lombok.ToString;
 public abstract class  Personne {
 
 	
+	public Personne( String prenom, String nom, String adresse, String tel, Date dateNaissance,
+			Date dateInscription) {
+		super();
+		
+		this.prenom = prenom;
+		this.nom = nom;
+		this.adresse = adresse;
+		this.tel = tel;
+		this.dateNaissance = dateNaissance;
+		this.dateInscription = dateInscription;
+	}
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;

@@ -1,6 +1,7 @@
 package com.spring.ebanking.entities;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,10 +21,17 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Client extends Personne {
 	
+		public Client( String prenom, String nom, String adresse, String tel, Date dateNaissance,
+			Date dateInscription) {
+		super( prenom, nom, adresse, tel, dateNaissance, dateInscription);
+	}
+
 		@Column(nullable = false,unique = true)
 		private	String email ;
 		private	String password ;
 		private String cin ;
+		
+		
 		
 		
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)

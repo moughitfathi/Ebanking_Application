@@ -1,12 +1,11 @@
 package com.spring.ebanking.entities;
 
-<<<<<<< HEAD
+
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-=======
 
 
 
@@ -18,7 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
->>>>>>> refs/remotes/master/master
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

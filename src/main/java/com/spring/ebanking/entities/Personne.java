@@ -20,7 +20,7 @@ import lombok.ToString;
 @Data @NoArgsConstructor @AllArgsConstructor 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Personne {
+public abstract class  Personne {
 
 	
 	@Id 

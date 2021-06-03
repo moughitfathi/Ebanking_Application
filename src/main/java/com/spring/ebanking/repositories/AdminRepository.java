@@ -1,4 +1,4 @@
-package com.spring.repositories;
+package com.spring.ebanking.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

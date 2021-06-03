@@ -1,9 +1,12 @@
 package com.spring.ebanking.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +21,10 @@ public class Role {
 	private Long id ;
 	private String role;
 	
+	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Client client;
+	
+	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Banquier banquier;
 
 }

@@ -3,6 +3,7 @@ package com.spring.ebanking.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,6 +16,8 @@ import lombok.NoArgsConstructor;
 
 @DiscriminatorValue("MULT")
 public class VirementMultiple  extends Virement{
+	
+	@Column(nullable = false)
 	private Integer nombreDeBeneficiare;
 	
 	@OneToMany(mappedBy = "virementMultiple")

@@ -1,6 +1,6 @@
 package com.spring.ebanking.entities;
 
-<<<<<<< HEAD
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,11 +14,13 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
->>>>>>> refs/remotes/master/master
+
+import org.apache.el.parser.AstFalse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +32,7 @@ import lombok.ToString;
 @Entity
 public class Client extends Personne {
 	
+		@Column(nullable = false,unique = true)
 		private	String email ;
 		private	String password ;
 		private String cin ;
@@ -50,6 +53,7 @@ public class Client extends Personne {
 		private List<Virement> virements;
 		
 		@OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+		@Column(nullable = false)
 		private Role role;
 		
 		

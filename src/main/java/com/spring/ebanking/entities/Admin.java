@@ -18,6 +18,9 @@ public class Admin extends Personne {
 	@Column(nullable = false)
 	private String password;
 	
+	@Column(nullable= false,unique = true)
+	private String cin;
+	
 	@OneToMany(mappedBy ="role",fetch = FetchType.LAZY)
 	@Column(nullable = false)
     private Role role;

@@ -28,5 +28,8 @@ public class Agence {
 	private String tel;
 	@OneToMany(mappedBy="lieuTravaille",fetch=FetchType.LAZY)
 	private List<Banquier>  listeBanquiers;
+	
+	@OneToMany(mappedBy = "compte",fetch = FetchType.LAZY)
+	private List<Compte> listeComptes;
 
 }

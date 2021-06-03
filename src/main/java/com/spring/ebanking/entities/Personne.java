@@ -28,6 +28,8 @@ public class Personne {
 	 private Date dateNaissance ;
 	 private Date dateInscription;
 	
+	 
+	 
 	
 	
 }

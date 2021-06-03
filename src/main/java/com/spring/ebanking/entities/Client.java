@@ -11,11 +11,11 @@ import lombok.ToString;
 @Data @NoArgsConstructor @AllArgsConstructor 
 @Entity
 public class Client extends Personne {
-	
+		//this is a test
 		private	String email ;
 		private	String password ;
 		private String cin ;
-			
+		
 	
 
 	

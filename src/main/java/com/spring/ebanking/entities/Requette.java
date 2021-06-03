@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Type",length = 3)
-public class Requette {
+public abstract class  Requette {
 
 	private Long id;
 	@Column(nullable  = false)

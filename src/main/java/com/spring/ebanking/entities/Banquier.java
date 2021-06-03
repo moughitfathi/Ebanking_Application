@@ -2,6 +2,7 @@ package com.spring.ebanking.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -27,8 +28,11 @@ import lombok.NoArgsConstructor;
 public class Banquier extends Personne {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true,nullable = false)
 	private String email;
+	@Column(nullable = false)
 	private String password;
+	@Column(unique = true,nullable = false)
 	private String cin;
 	@ManyToOne
 	@JoinColumn(name="ID_AGENCE")
@@ -38,6 +42,7 @@ public class Banquier extends Personne {
 	private List<Requette>  listeRequettes;
 	
 	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY)
+	@Column(nullable = false)
 	private Role role;
  
 }

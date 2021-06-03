@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 
 @Data @NoArgsConstructor @AllArgsConstructor 
@@ -24,6 +25,7 @@ public class Client extends Personne {
 		private	String email ;
 		private	String password ;
 		private String cin ;
+		
 		
 		
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)

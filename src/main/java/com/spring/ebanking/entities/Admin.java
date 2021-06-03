@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data@AllArgsConstructor
 @NoArgsConstructor
 public class Admin extends Personne {
-	private Long id;
+
 	@Column(unique = true,nullable = false)
 	private String email;
 	@Column(nullable = false)

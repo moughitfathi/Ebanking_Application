@@ -80,17 +80,18 @@ public class BanquierService {
 	
 	//modifier lesinfos du banquier avec l' Id 
 	public void updateBanquier(Long id, Banquier banquier) throws Exception {
-		if(banquierRepository.findByEmail(banquier.getEmail()).isPresent()) {
+		Banquier banquier1= banquierRepository.findById(id).orElseThrow(() -> new Exception("aucun banquier avec cet Id "));
+
+		if(banquierRepository.findByEmail(banquier.getEmail()).isPresent()  && !(banquierRepository.findByEmail(banquier.getEmail()).get().getEmail().equals(banquier1.getEmail()))) {
 			throw new Exception("Veuillez choisir un autre Email");
 		}
-		if(banquierRepository.findByCin(banquier.getCin()).isPresent()) {
-			throw new Exception("Veuillez choisir un autre Username");
+		if(banquierRepository.findByCin(banquier.getCin()).isPresent() && !(banquierRepository.findByCin(banquier.getCin()).get().getCin().equals(banquier1.getCin()))) {
+			throw new Exception("Veuillez choisir un autre cin");
 		}
-		if(banquierRepository.findByTel(banquier.getTel()).isPresent()) {
-			throw new Exception("Veuillez choisir un autre Username");
+		if(banquierRepository.findByTel(banquier.getTel()).isPresent() && !(banquierRepository.findByTel(banquier.getTel()).get().getTel().equals(banquier1.getTel()))) {
+			throw new Exception("Veuillez choisir un autre numero du telephone");
 		}
 	// if banquier not exist throw exception
-		Banquier banquier1= banquierRepository.findById(id).orElseThrow(() -> new Exception("aucun banquier avec cet Id "));
 		
 	//else
 		if(banquier.getNom()!=null && !banquier.getNom().isEmpty()) banquier1.setNom(banquier.getNom());

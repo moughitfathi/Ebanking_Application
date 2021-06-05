@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
@@ -29,6 +30,7 @@ public class Client extends Personne {
 		@Column(nullable = false,unique = true)
 		private	String email ;
 		private	String password ;
+		@Column(nullable = false,unique = true)
 		private String cin ;
 		
 		
@@ -51,6 +53,12 @@ public class Client extends Personne {
 		@OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 		@Column(nullable = false)
 		private Role role;
+		
+		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		private Banquier banquier;
+		
+		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		private Agence agence ;
 		
 		
 		

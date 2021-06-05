@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -32,13 +34,16 @@ public class Agence {
 	private String email;
 	@Column(unique = true,nullable  = false)
 	private String tel;
-	@OneToMany(mappedBy="lieuTravaille",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="agence",fetch=FetchType.LAZY)
 	private List<Banquier>  listeBanquiers;
 	
-	@OneToMany(mappedBy = "compte",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
 	private List<Compte> listeComptes;
 	
-	@OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
 	private List<Client> listeClients;
+	@ManyToOne
+	@JoinColumn(name="ID_ADMIN")
+	private Admin admin;
 
 }

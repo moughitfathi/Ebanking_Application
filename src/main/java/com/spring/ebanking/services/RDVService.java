@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.RDV;
 import com.spring.ebanking.repositories.RDVRepository;
 
+@Service
 public class RDVService {
 	
 	@Autowired

@@ -8,7 +8,9 @@ import com.spring.ebanking.entities.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>{
 	
-	Optional<Role> findById(Long id);
+
 	Optional<Role> findByRole(String role);
+
+	Optional<Role>  findById(Long id);
 
 }

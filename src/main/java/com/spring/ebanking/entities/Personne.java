@@ -15,12 +15,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 
-@Data @NoArgsConstructor @AllArgsConstructor 
+@Data  @NoArgsConstructor@AllArgsConstructor
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class  Personne {
+public  abstract class  Personne {
 
 	
 	

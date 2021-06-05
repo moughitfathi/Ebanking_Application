@@ -33,7 +33,7 @@ public class AgenceController {
 
 	//recuperer les banquiers d'une agence
 	@GetMapping("/agence/{id}/banquiers")
-	public List<Banquier> getAgents(@PathVariable(name="id") Long id) throws Exception
+	public List<Banquier> getBanquiers(@PathVariable(name="id") Long id) throws Exception
 	{
 		return agenceservice.getBanquiers(id);
 	}

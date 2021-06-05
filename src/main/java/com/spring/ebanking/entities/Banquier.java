@@ -3,15 +3,11 @@ package com.spring.ebanking.entities;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -44,5 +40,11 @@ public class Banquier extends Personne {
 	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY)
 	@Column(nullable = false)
 	private Role role;
- 
+	
+   @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
+   List<Client> listeClients;
+   
+   @ManyToOne
+   @JoinColumn(name="ID_ADMIN")
+   private Admin admin;
 }

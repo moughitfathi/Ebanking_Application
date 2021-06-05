@@ -32,7 +32,7 @@ public class Banquier extends Personne {
 	private String cin;
 	@ManyToOne
 	@JoinColumn(name="ID_AGENCE")
-	private Agence lieuTravaille;
+	private Agence agence;
 	
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
 	private List<Requette>  listeRequettes;

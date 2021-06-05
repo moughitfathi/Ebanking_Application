@@ -19,6 +19,8 @@ public class VirementMultiple  extends Virement{
 	
 	@Column(nullable = false)
 	private Integer nombreDeBeneficiare;
+	@Column(nullable=false)
+	private String status="enregistre";
 	
 	@OneToMany(mappedBy = "virementMultiple")
 	private List<VirementMulttipleBeneficiare> virementMultipleBeneficiare;

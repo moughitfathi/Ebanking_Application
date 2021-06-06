@@ -7,9 +7,6 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +23,4 @@ public abstract class  Requette {
 	@Column(nullable  = false)
 	private Date dateRequette;
 	private Boolean etat;
-	@ManyToOne
-	@JoinColumn(name = "ID_BANQUIER")
-	private Banquier banquier;
 }

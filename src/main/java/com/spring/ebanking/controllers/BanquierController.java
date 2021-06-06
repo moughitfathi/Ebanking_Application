@@ -1,4 +1,4 @@
-package com.spring.controllers;
+package com.spring.ebanking.controllers;
 
 import java.util.List;
 

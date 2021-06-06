@@ -1,6 +1,9 @@
 package com.spring.ebanking.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +69,7 @@ public class BanquierService {
 	   	
          banquier.setPassword(new BCryptPasswordEncoder().encode(banquier.getPassword()));
          Role role=roleRepository.findByRole("banquier").orElseThrow(() -> new Exception("error role introuvable"));
-			
+		 banquier.setDateInscription(new Date());	
 	     banquier.setRole(role);
     // set attribute  admin who add this banquier
 	 	 Admin admin=adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -80,6 +83,7 @@ public class BanquierService {
 	
 	//modifier lesinfos du banquier avec l' Id 
 	public void updateBanquier(Long id, Banquier banquier) throws Exception {
+		// if banquier not exist throw exception
 		Banquier banquier1= banquierRepository.findById(id).orElseThrow(() -> new Exception("aucun banquier avec cet Id "));
 
 		if(banquierRepository.findByEmail(banquier.getEmail()).isPresent()  && !(banquierRepository.findByEmail(banquier.getEmail()).get().getEmail().equals(banquier1.getEmail()))) {
@@ -91,7 +95,8 @@ public class BanquierService {
 		if(banquierRepository.findByTel(banquier.getTel()).isPresent() && !(banquierRepository.findByTel(banquier.getTel()).get().getTel().equals(banquier1.getTel()))) {
 			throw new Exception("Veuillez choisir un autre numero du telephone");
 		}
-	// if banquier not exist throw exception
+		DateFormat date=new SimpleDateFormat("yyyy-mm-dd");
+	
 		
 	//else
 		if(banquier.getNom()!=null && !banquier.getNom().isEmpty()) banquier1.setNom(banquier.getNom());
@@ -101,8 +106,7 @@ public class BanquierService {
 		if(banquier.getAdresse()!=null && !banquier.getAdresse().isEmpty()) banquier1.setAdresse(banquier.getAdresse());
 		if(banquier.getEmail()!=null && !banquier.getEmail().isEmpty()) banquier1.setEmail(banquier.getEmail());
 		if(banquier.getPassword()!=null && !banquier.getPassword().isEmpty()) banquier1.setPassword(new BCryptPasswordEncoder().encode(banquier.getPassword()));
-		if(banquier.getDateNaissance()!=null && !(banquier.getDateNaissance()).equals("")) banquier.setDateNaissance(banquier.getDateNaissance());
-		if(banquier.getDateInscription()!=null && !banquier.getDateInscription().equals("")) banquier.setDateInscription(banquier.getDateNaissance());
+		if(banquier.getDateNaissance()!=null && !(date.format(banquier.getDateNaissance())).isEmpty()) banquier.setDateNaissance(banquier.getDateNaissance());
 	
 		banquierRepository.save(banquier1);
 		
@@ -118,9 +122,9 @@ public class BanquierService {
 	}
 	
 	
-	//supprimer un banquier
+	//supprimer un banquier 
 	public void deleteBanquier(Long id) throws Exception {
-	//vérifier l'existence du banquier
+	//vérifier l'existence d'un banquier
 	    Banquier banquier=banquierRepository.findById(id).orElseThrow(() -> new Exception(" banquier avec l'id "+id+" n'est pas trouvé"));
 	    banquierRepository.delete(banquier);
 	    

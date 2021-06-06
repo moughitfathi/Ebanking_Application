@@ -35,7 +35,7 @@ public class Banquier extends Personne {
 	private Agence agence;
 	
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
-	private List<Requette>  listeRequettes;
+	private List<RDV>  listeRendez_vous;
 	
 	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY)
 	@Column(nullable = false)

@@ -27,7 +27,7 @@ public class Admin extends Personne {
 	@OneToOne(mappedBy ="role",fetch = FetchType.LAZY)
 	@Column(nullable = false)
     private Role role;
-	
+
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
 	private List<Agence> agences;
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)

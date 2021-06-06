@@ -1,10 +1,15 @@
 package com.spring.ebanking.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.spring.ebanking.entities.Agence;
 import com.spring.ebanking.entities.Banquier;
 import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.Client;
@@ -25,6 +30,17 @@ public class ClientService {
 	@Autowired
 	RoleRepository roleRepository;
 	
+	@Autowired
+	BanquierService banquierService;
+	
+	
+	@Autowired
+	AgenceService agenceService;
+	
+	
+	@Autowired
+	EmailService emailService;
+	
 	
 			public void addClient(Client client) throws Exception{
 				
@@ -36,18 +52,34 @@ public class ClientService {
 					throw new Exception("This cin already exists try another one .");
 				
 				}
+				if(clientRepository.findByTel(client.getTel()).isPresent()) {
+					throw new Exception("This Tel already exists try another one .");
+					
+				}
+				String password =client.getPassword() ;
+				if(!password.isEmpty() && password!=null) {
+					client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));	
+				}
+				else {
+					throw new Exception("password does not setted");
+				}
 				
-				client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
+				client.setDateInscription(new Date());
 				 
-				client.setRole(roleRepository.findByRole("Client")
+				client.setRole(roleRepository.findByRole("client")
 						.orElseThrow(()-> new NotFoundException("role not found")));
 				
-				//Banquier banquier = 
+				Banquier banquier = banquierService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 				
-					
+				client.setBanquier(banquier);
+				
+				Agence agence = agenceService.getAgences(banquier.getAgence().getId()).get(0);
+				client.setAgence(agence);
 				
 				
-				
+				clientRepository.save(client);
+				client.setPassword(null		);
+				emailService.sendEmail(client);
 			
 			}
 			
@@ -61,6 +93,7 @@ public class ClientService {
 	}
 	
 	public List<Client> getClients() throws NotFoundException{
+		
 		List<Client> clients= clientRepository.findAll();
 		if(clients.isEmpty()) throw new NotFoundException("No client found");
 		
@@ -91,6 +124,40 @@ public class ClientService {
 	
 	}
 	
+	public void updateClient(Long id ,Client client) throws Exception {
+		
+		Client updateClient = clientRepository.findById(id)
+				.orElseThrow(()-> new Exception("No customer with this id :"+id));
+		
+		if(clientRepository.findByEmail(client.getEmail()).isPresent() && !(clientRepository.findByEmail(client.getEmail()).get()==updateClient))
+		throw new Exception("try with anothor email");
+		
+		if(clientRepository.findByCin(client.getCin()).isPresent() &&  !(clientRepository.findByCin(client.getCin()).get()==updateClient)                 )
+		throw new Exception("try with anothor cin ");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+
+		
+		if(client.getPrenom()!=null && !client.getPrenom().isEmpty()) updateClient.setPrenom(client.getPrenom());
+		if(client.getNom()!=null && !client.getNom().isEmpty()) updateClient.setNom(client.getNom());
+		if(client.getAdresse()!=null && !client.getAdresse().isEmpty()) updateClient.setAdresse(client.getAdresse());
+		if(client.getTel()!=null && !client.getTel().isEmpty()) updateClient.setTel(client.getTel());
+		if(client.getPrenom()!=null && !client.getPrenom().isEmpty()) updateClient.setPrenom(client.getPrenom());
+		if(client.getDateNaissance()!=null && !(dateFormat.format(client.getDateNaissance()).isEmpty())) updateClient.setDateNaissance(client.getDateNaissance());
+		if(client.getEmail()!=null && !client.getEmail().isEmpty()) updateClient.setEmail(client.getEmail());
+		if(client.getCin()!=null && !client.getCin().isEmpty()) updateClient.setCin(client.getCin());
+		if(client.getPassword()!=null && !client.getPassword().isEmpty()) updateClient.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
+		
+		clientRepository.save(updateClient);
+		
+		
+		
+		emailService.sendEmail(updateClient);
+
+		
+		
+	}
+	
+
 	
 	//delete Customer
 	public void deleteClient(Long id) throws NotFoundException{
@@ -98,6 +165,9 @@ public class ClientService {
 		
 		if(!clientRepository.findById(id).isPresent()) throw new NotFoundException("No customer with this id :"+id);
 		clientRepository.deleteById(id);
+		
+		Banquier banquier = banquierService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		System.out.println("The customer with id : "+id+" was deleted by "+banquier);
 	
 	}
 	

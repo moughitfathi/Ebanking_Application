@@ -54,11 +54,56 @@ public class CompteService {
 	
 	//add account
 	public void addCompte(Compte compte) throws Exception{
+		
+		
 		if(compteRepository.findByNumero(compte.getNumero()).isPresent()) {
 			throw new Exception("there is an account with this number :"+compte.getNumero());
 		}
+		
+		
 		compteRepository.save(compte);
 	}
+	
+	public void updateCompte(Long id ,Compte compte) throws NotFoundException {
+		
+		
+		Compte updateCompte = compteRepository.findById(id)
+				.orElseThrow(()-> new NotFoundException("No account with this id :"+id));
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

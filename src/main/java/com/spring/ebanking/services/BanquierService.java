@@ -13,6 +13,8 @@ import com.spring.ebanking.entities.Role;
 import com.spring.ebanking.repositories.BanquierRepository;
 import com.spring.ebanking.repositories.RoleRepository;
 
+import javassist.NotFoundException;
+
 @Service
 public class BanquierService {
 	
@@ -96,6 +98,17 @@ public class BanquierService {
 	/* Admin admin = adminService.getById(SecurityContextHolder.getContext().getAuthentication().getName());
 	   logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+" a supprimé  le banquier "+banquier.getId());
 	*/
+	}
+	
+	public Banquier getByEmail(String email) throws NotFoundException{
+		
+		
+		Banquier banquier = banquierRepository.findByEmail(email)
+				.orElseThrow(()-> new NotFoundException("banker with this email"));
+		
+		return banquier;
+		
+		
 	}
 	
 	

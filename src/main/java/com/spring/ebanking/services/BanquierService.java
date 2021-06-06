@@ -118,9 +118,9 @@ public class BanquierService {
 	}
 	
 	
-	//supprimer un banquier
+	//supprimer un banquier 
 	public void deleteBanquier(Long id) throws Exception {
-	//vérifier l'existence du banquier
+	//vérifier l'existence d'un banquier
 	    Banquier banquier=banquierRepository.findById(id).orElseThrow(() -> new Exception(" banquier avec l'id "+id+" n'est pas trouvé"));
 	    banquierRepository.delete(banquier);
 	    

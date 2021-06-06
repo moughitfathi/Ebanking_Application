@@ -28,10 +28,6 @@ public class Admin extends Personne {
 	@Column(nullable = false)
     private Role role;
 	
-	@OneToMany(mappedBy="admin",fetch = FetchType.LAZY)
-	@Column(nullable = false)
-
-	private Admin admin;
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
 	private List<Agence> agences;
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)

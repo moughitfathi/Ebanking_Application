@@ -30,7 +30,13 @@ public class Admin extends Personne {
 	
 	@OneToMany(mappedBy="admin",fetch = FetchType.LAZY)
 	@Column(nullable = false)
+
+	private Admin admin;
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+	private List<Agence> agences;
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
 	List<Banquier> listeBanquiers;
+
 	
 	
 }

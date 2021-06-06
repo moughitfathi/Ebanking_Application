@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import com.spring.ebanking.entities.Admin;
 import com.spring.ebanking.entities.Banquier;
 import com.spring.ebanking.entities.Client;
+import com.spring.ebanking.entities.CreneauDispo;
 
 
 public class EmailService {
@@ -61,4 +62,32 @@ public class EmailService {
         emailSender.send(message);
 			
 	}
+	public void sendConfirmationRendez_vous(Banquier b, Client c,CreneauDispo cr) throws MailException{
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(b.getEmail());
+		message.setSubject("confirmation de rendez-vous");
+		message.setText(
+        		"Bonjour Cher Agent"+b.getNom()+" "+b.getPrenom()+", \n"
+        		+"Le client"+c.getNom()+" "+b.getPrenom()+ "a pris un rendez-vous avec vous"
+        		+ "pour la date:" + cr.getDateDebut()+" :\n"
+        		+"\nCordialement."
+        		);
+        emailSender.send(message);
+			
+	}
+	public void sendConfirmationRendez_vous(Client c,Banquier b, CreneauDispo cr) throws MailException{
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(b.getEmail());
+		message.setSubject("confirmation de rendez-vous");
+		message.setText(
+        		"Bonjour Cher Client"+c.getNom()+" "+c.getPrenom()+", \n"
+        		+"vous avez pris un rendez-vous avec l'agent: "+b.getNom()+" "+b.getPrenom()+ "\n"
+        		+ "pour la date:" + cr.getDateDebut()+" :\n"
+        		+"\nCordialement."
+        		);
+        emailSender.send(message);
+			
+	}
+	
+	
 }

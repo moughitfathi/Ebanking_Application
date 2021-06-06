@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.Admin;
 import com.spring.ebanking.entities.Banquier;
+import com.spring.ebanking.entities.CreneauDispo;
 import com.spring.ebanking.entities.Role;
 import com.spring.ebanking.repositories.BanquierRepository;
+import com.spring.ebanking.repositories.CreneauDispoRepository;
 import com.spring.ebanking.repositories.RoleRepository;
 
 
@@ -27,12 +29,13 @@ public class BanquierService {
 	@Autowired
 	RoleRepository roleRepository;
 	@Autowired
+	CreneauDispoRepository creneauRepository;
+	@Autowired
 	AdminService adminService;
 	@Autowired
 	EmailService emailService;
 	
 	
-	Logger logger = LoggerFactory.getLogger(BanquierService.class.getName());
 	
 	//retourner les banquiers ou un seul
 	public List<Banquier> getBanquiers(Long id)  throws Exception
@@ -116,7 +119,6 @@ public class BanquierService {
 		emailService.sendEmail(banquier1);
 		
 		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-		logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+" a modifié le banquier avec l'email "+banquier1.getEmail()+"");
     
 		
 	}
@@ -129,10 +131,28 @@ public class BanquierService {
 	    banquierRepository.delete(banquier);
 	    
 	    Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-	    logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+" a supprimé  le banquier "+banquier.getId());
 	
 	}
 	
+	
+	//ajouter les creneau disponibles
+	public void addCreneauDispo(List<CreneauDispo> creneaudispos, Banquier banquier) {
+		
+		List<CreneauDispo> creneauxlocale=new ArrayList<CreneauDispo>();
+		CreneauDispo  creneaudispo=new CreneauDispo();
+		
+		DateFormat dateformat=new SimpleDateFormat("yyyy-mm-dd");
+		for (CreneauDispo i : creneaudispos) {
+			if(i.getDateDebut()!=null && !(dateformat.format(i.getDateDebut()).isEmpty())) creneaudispo.setDateDebut(i.getDateDebut());
+			if(i.getDateFin()!=null && !(dateformat.format(i.getDateFin()).isEmpty()))  creneaudispo.setDateFin(i.getDateFin());
+		
+			creneauxlocale.add(creneaudispo);
+			creneauRepository.save(creneaudispo);
+			}
+ 
+		banquier.setListeCreneauDispos(creneauxlocale);
+		
+	}
 	
 
 }

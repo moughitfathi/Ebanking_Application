@@ -22,7 +22,6 @@ public class AgenceService {
 	AgenceRepository agenceRepo;
 	@Autowired
 	AdminService adminService;
-	Logger logger = LoggerFactory.getLogger(AgenceService.class.getName());
 
 	
 	//recuperer une agence ou plusieurs
@@ -45,7 +44,7 @@ public class AgenceService {
 	public List<Banquier> getBanquiers(Long id) throws Exception
 	{
 		Agence agence= agenceRepo.findById(id).orElseThrow(() -> new Exception("Aucune agence avec l'id "+id+" trouvée"));
-		if(agence.getListeBanquiers().isEmpty()) throw new Exception("Cet agence ne contient aucun agent.");
+		if(agence.getListeBanquiers().isEmpty()) throw new Exception("Cet agence ne contient aucun banquier.");
 		return agence.getListeBanquiers();
 	}
 	
@@ -75,7 +74,6 @@ public class AgenceService {
 		agenceRepo.save(agence);	
 		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 		agence.setAdmin(admin);	
-		logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+"  a créé l'agence "+agence.getNom());
  	}
 	
 	//delete agence
@@ -87,7 +85,6 @@ public class AgenceService {
 		agenceRepo.delete(agence);
 		
 		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-		logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+"a supprimé l'agence"+agence.getNom());
     
 	}
 	
@@ -117,7 +114,6 @@ public class AgenceService {
 		agenceRepo.save(updated);
 		
 		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-		logger.debug("L'administrateur "+admin.getNom()+" "+admin.getPrenom()+" a modifié l'agence "+updated.getNom());
 	
 	}
 

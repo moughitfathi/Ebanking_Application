@@ -47,4 +47,7 @@ public class Banquier extends Personne {
    @ManyToOne
    @JoinColumn(name="ID_ADMIN")
    private Admin admin;
+   
+   @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
+   List<CreneauDispo> listeCreneauDispos;
 }

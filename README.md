@@ -13,7 +13,7 @@
 </p>  <hr>
 
    <h3>Contributed by : </h3>
-   <p>
+   <div>
   <p>Mamoun Mohamed</p>
 <p><a href="https://github.com/paponni" target="_blank"><img alt="Github" src="https://img.shields.io/badge/GitHub-%2312100E.svg?&style=for-the-badge&logo=Github&logoColor=white" /></a> /
    <p>Lakbir Yassine</p>
@@ -21,4 +21,4 @@
   <p>Fathi Abdlmoughit</p>
 <p><a href="https://github.com/moughitfathi" target="_blank"><img alt="Github" src="https://img.shields.io/badge/GitHub-%2312100E.svg?&style=for-the-badge&logo=Github&logoColor=white" /></a>
   
-</p>
+</div>

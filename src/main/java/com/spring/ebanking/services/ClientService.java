@@ -200,10 +200,7 @@ public class ClientService {
 		emailservice.sendConfirmationRendez_vous(banquier, client, creneaudispo);
 		emailservice.sendConfirmationRendez_vous(client,banquier, creneaudispo);
 
-		
-		
-		
-		
+	
 	}
 		
 	}

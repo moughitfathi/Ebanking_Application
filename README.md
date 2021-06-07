@@ -10,13 +10,7 @@
   <img alt="java" src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
 
   
-</p>
-  
-  
-  
-  
-  
-    <hr>
+</p>  <hr>
 
    <h3>Contributed by : </h3>
   <p>Mamoun Mohamed</p>

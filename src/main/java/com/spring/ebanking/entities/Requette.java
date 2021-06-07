@@ -1,14 +1,17 @@
 package com.spring.ebanking.entities;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +25,10 @@ import lombok.NoArgsConstructor;
 @DiscriminatorColumn(name="Type",length = 3)
 public abstract class  Requette {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable  = false)
-	private Date dateRequette;
+	private Date dateRequette;  //date debut de rendez_vous
 	private Boolean etat;
-	@ManyToOne
-	@JoinColumn(name = "ID_BANQUIER")
-	private Banquier banquier;
 }

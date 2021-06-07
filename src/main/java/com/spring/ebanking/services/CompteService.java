@@ -27,93 +27,71 @@ public class CompteService {
 	//get account
 	public Compte getCompte(Long id) throws NotFoundException {
 		
-		Compte compte = compteRepository.findById(id)
-				.orElseThrow(()->new NotFoundException("there is no account with this id :"+id));
-		
-				return compte;
+				Compte compte = compteRepository.findById(id)
+						.orElseThrow(()->new NotFoundException("there is no account with this id :"+id));
+				
+						return compte;
 	}
 	
 	
 	//get a list of accounts
 	public List<Compte> getComptes() throws NotFoundException{
-		List<Compte> comptes =compteRepository.findAll();
-		if(comptes.isEmpty()) throw new NotFoundException("No account found");
-		
-		return comptes;
+				List<Compte> comptes =compteRepository.findAll();
+				if(comptes.isEmpty()) throw new NotFoundException("No account found");
+				
+				return comptes;
 		
 	}
 	
 	//get account by his number
 	public Compte getByNumero(int numCompte ) throws NotFoundException {
 		
-		Compte compte = compteRepository.findByNumero(numCompte)
-				.orElseThrow(()-> new NotFoundException("Invalid account"));
-						
-	return compte;
+					Compte compte = compteRepository.findByNumero(numCompte)
+							.orElseThrow(()-> new NotFoundException("Invalid account"));
+									
+				return compte;
 	}
 	
 	//add account
 	public void addCompte(Compte compte) throws Exception{
 		
 		
-		if(compteRepository.findByNumero(compte.getNumero()).isPresent()) {
-			throw new Exception("there is an account with this number :"+compte.getNumero());
-		}
-		
-		
-		compteRepository.save(compte);
+			if(compteRepository.findByNumero(compte.getNumero()).isPresent()) {
+				throw new Exception("there is an account with this number :"+compte.getNumero());
+			}
+			
+			
+			compteRepository.save(compte);
 	}
 	
-	public void updateCompte(Long id ,Compte compte) throws NotFoundException {
+	public void updateCompte(Long id ,Compte compte) throws NotFoundException,Exception {
 		
 		
 		Compte updateCompte = compteRepository.findById(id)
 				.orElseThrow(()-> new NotFoundException("No account with this id :"+id));
 		
+		if(compteRepository.findByNumero(compte.getNumero()).isPresent() && !(compteRepository.findByNumero(compte.getNumero()).get()==updateCompte))
+			throw new Exception("account with this num "+compte.getNumero()+"already exists");
+		
+		Integer compteNum = Integer.valueOf(compte.getNumero());
+		if(compteNum!=null && !String.valueOf(compte.getNumero()).isEmpty()) updateCompte.setNumero(compte.getNumero());
+		if(compte.getSolde()!=null && !String.valueOf(compte.getSolde()).isEmpty()) updateCompte.setSolde(compte.getSolde());
 		
 		
+		compteRepository.save(updateCompte);
+
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//delete account
 	public void deleteCompte(Long id) throws NotFoundException {
-		
-		if(!compteRepository.findById(id).isPresent()) throw new NotFoundException("No account with this id :"+id);
-		compteRepository.deleteById(id);
+				
+				if(!compteRepository.findById(id).isPresent()) throw new NotFoundException("No account with this id :"+id);
+				compteRepository.deleteById(id);
 	}
+	
+	
 	
 	public List<VirementMultiple> virementMultiples(Long id) throws NotFoundException{
 		Compte compte =compteRepository.findById(id)

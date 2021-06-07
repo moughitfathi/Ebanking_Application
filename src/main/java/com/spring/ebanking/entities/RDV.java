@@ -2,11 +2,8 @@ package com.spring.ebanking.entities;
 
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -28,5 +25,10 @@ public class RDV extends Requette{
 	@JoinColumn(name="ID_RDV")
 	@Column(unique = true,nullable  = false)
 	private Client client ;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "ID_BANQUIER")
+	private Banquier banquier;
 
 }

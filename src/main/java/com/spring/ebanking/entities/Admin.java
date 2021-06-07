@@ -1,5 +1,7 @@
 package com.spring.ebanking.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,10 +27,12 @@ public class Admin extends Personne {
 	@OneToOne(mappedBy ="role",fetch = FetchType.LAZY)
 	@Column(nullable = false)
     private Role role;
-	
-	@OneToMany(mappedBy="admin",fetch = FetchType.LAZY)
-	@Column(nullable = false)
-	private Admin admin;
+
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+	private List<Agence> agences;
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+	List<Banquier> listeBanquiers;
+
 	
 	
 }

@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -40,5 +42,8 @@ public class Agence {
 	
 	@OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
 	private List<Client> listeClients;
+	@ManyToOne
+	@JoinColumn(name="ID_ADMIN")
+	private Admin admin;
 
 }

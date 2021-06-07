@@ -2,6 +2,7 @@ package com.spring.ebanking.services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import com.spring.ebanking.entities.Banquier;
 import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.Client;
 import com.spring.ebanking.entities.Compte;
+import com.spring.ebanking.entities.CreneauDispo;
+import com.spring.ebanking.entities.RDV;
 import com.spring.ebanking.entities.Role;
 import com.spring.ebanking.repositories.ClientRepository;
 import com.spring.ebanking.repositories.RoleRepository;
@@ -25,7 +28,11 @@ public class ClientService {
 	
 	@Autowired
 	ClientRepository clientRepository;
+	@Autowired
+	AgenceService agenceservice;
 	
+	@Autowired
+	EmailService emailservice;
 	
 	@Autowired
 	RoleRepository roleRepository;
@@ -160,7 +167,7 @@ public class ClientService {
 
 	
 	//delete Customer
-	public void deleteClient(Long id) throws NotFoundException{
+	public void deleteClient(Long id) throws Exception{
 		
 		
 		if(!clientRepository.findById(id).isPresent()) throw new NotFoundException("No customer with this id :"+id);
@@ -171,8 +178,32 @@ public class ClientService {
 	
 	}
 	
+	public List<CreneauDispo> getDateDispos(Client client) throws Exception {
+		List<CreneauDispo> disponibles=new ArrayList<CreneauDispo>();
+		 List<CreneauDispo> listecre =client.getBanquier().getListeCreneauDispos();
+		  for(CreneauDispo d: listecre) {
+			  if(d.getStatus()==false) {
+				  disponibles.add(d);
+			  }
+		  }
+		 return disponibles;
+		}
 	
-	
-	
+	public void choixRDV(Client client,CreneauDispo creneaudispo) {
 
-}
+		Banquier banquier=creneaudispo.getBanquier();
+		RDV objectrdv=new RDV();
+		creneaudispo.setStatus(true);
+		objectrdv.setDateRequette(creneaudispo.getDateDebut());
+		client.getRendezVous().add(objectrdv);
+		banquier.getListeRendez_vous().add(objectrdv);
+		emailservice.sendConfirmationRendez_vous(banquier, client, creneaudispo);
+		emailservice.sendConfirmationRendez_vous(client,banquier, creneaudispo);
+
+		
+		
+		
+		
+	}
+		
+	}

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.RDV;
 import com.spring.ebanking.repositories.RDVRepository;
 
+@Service
 public class RDVService {
 	
 	@Autowired
@@ -22,7 +24,7 @@ public class RDVService {
 				
 				List<RDV> listeRendez_vous= new ArrayList<RDV>();	
 				if(id!=null)
-					listeRendez_vous.add(RDVrepo.findById(id).orElseThrow(() -> new Exception("Aucun Rebdez-vous avec l'id "+id+" trouvé")));
+					listeRendez_vous.add(RDVrepo.findById(id).orElseThrow(() -> new Exception("Aucun Rendez-vous avec l'id "+id+" trouvé")));
 				
 				else
 					listeRendez_vous=RDVrepo.findAll();
@@ -31,6 +33,8 @@ public class RDVService {
 				return listeRendez_vous;
 		
 	}
+	
+	
 	
 	
 	

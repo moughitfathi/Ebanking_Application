@@ -25,7 +25,7 @@ public class VirementMultipleService {
 		BeneficiareRepository benRepo;
 		
 		
-		VirementMultiple getVirementMultiple(Long id) throws NotFoundException {
+		public VirementMultiple getVirementMultiple(Long id) throws NotFoundException {
 			
 			VirementMultiple virmentmult = virMulRepo.findById(id).orElseThrow(() -> 
 			new NotFoundException("le virment avec l'id= "+id+" est introuvable!"));
@@ -34,7 +34,7 @@ public class VirementMultipleService {
 		
 		
 		//Methode qui va nous returner la liste des benificiare 
-		List<VirementMulttipleBeneficiare> getVirementMultipleBeneficiaire(Long id) throws NotFoundException{
+		public List<VirementMulttipleBeneficiare> getVirementMultipleBeneficiaire(Long id) throws NotFoundException{
 				
 			VirementMultiple virmentmult = virMulRepo.findById(id).orElseThrow(() -> 
 			new NotFoundException("le virment avec l'id= "+id+" est introuvable!"

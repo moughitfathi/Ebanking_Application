@@ -23,7 +23,7 @@ public class RDV extends Requette{
 	private String motif;
 	@ManyToOne
 	@JoinColumn(name="ID_RDV")
-	@Column(unique = true,nullable  = false)
+	//@Column(unique = true,nullable  = false)
 	private Client client ;
 	
 

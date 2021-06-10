@@ -24,8 +24,8 @@ public class Admin extends Personne {
 	@Column(nullable= false,unique = true)
 	private String cin;
 	
-	@OneToOne(mappedBy ="role",fetch = FetchType.LAZY)
-	@Column(nullable = false)
+	@OneToOne(mappedBy ="admin",fetch = FetchType.LAZY)
+	//@Column(nullable = false)
     private Role role;
 
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)

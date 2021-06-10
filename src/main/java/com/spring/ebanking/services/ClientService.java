@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.Agence;
 import com.spring.ebanking.entities.Banquier;
@@ -23,6 +24,7 @@ import com.spring.ebanking.repositories.RoleRepository;
 
 import javassist.NotFoundException;
 
+@Service
 public class ClientService {
 	
 	

@@ -4,18 +4,21 @@ package com.spring.ebanking.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.Admin;
 import com.spring.ebanking.entities.Banquier;
 import com.spring.ebanking.entities.Client;
 import com.spring.ebanking.entities.CreneauDispo;
 
-
+@Service
 public class EmailService {
 		
+	
 	@Autowired
 	public JavaMailSender emailSender;
 	

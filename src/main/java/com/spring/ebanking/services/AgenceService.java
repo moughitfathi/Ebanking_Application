@@ -3,8 +3,6 @@ package com.spring.ebanking.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -84,7 +82,6 @@ public class AgenceService {
 		Agence agence=agenceRepo.findById(id).orElseThrow(() -> new Exception("Aucune agence avec l'id "+id+" n'est trouvé"));
 		agenceRepo.delete(agence);
 		
-		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     
 	}
 	
@@ -113,7 +110,6 @@ public class AgenceService {
 		
 		agenceRepo.save(updated);
 		
-		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 	
 	}
 

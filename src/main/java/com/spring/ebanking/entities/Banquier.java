@@ -37,8 +37,8 @@ public class Banquier extends Personne {
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
 	private List<RDV>  listeRendez_vous;
 	
-	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY)
-	@Column(nullable = false)
+	@OneToOne(mappedBy = "banquier",fetch = FetchType.LAZY)
+	//@Column(nullable = false)
 	private Role role;
 	
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)

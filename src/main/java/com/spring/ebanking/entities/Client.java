@@ -52,7 +52,7 @@ public class Client extends Personne {
 		private List<Virement> virements;
 		
 		@OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-		@Column(nullable = false)
+		//@Column(nullable = false)
 		private Role role;
 		
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)

@@ -2,6 +2,7 @@ package com.spring.ebanking.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -14,6 +15,7 @@ import com.spring.ebanking.repositories.VirementMultipleRepository;
 
 import javassist.NotFoundException;
 
+@Service
 public class VirementMultipleService {
 		@Autowired
 		VirementMultipleRepository virMulRepo;

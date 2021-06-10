@@ -25,12 +25,12 @@ public class Role {
 	@Column(unique = true,nullable = false)
 	private String role;
 	
-	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne
 	private Client client;
 	
-	@OneToOne(mappedBy = "role",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne
 	private Banquier banquier;
 	
-	@OneToOne(mappedBy = "role" , fetch = FetchType.LAZY)
+	@OneToOne
 	private Admin admin;
 }

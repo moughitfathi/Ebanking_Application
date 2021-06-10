@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.Admin;
 import com.spring.ebanking.repositories.AdminRepository;
@@ -16,6 +17,7 @@ import com.spring.ebanking.repositories.RoleRepository;
 
 import javassist.NotFoundException;
 
+@Service
 public class AdminService {
 @Autowired 
 AdminRepository adminRepository;
@@ -23,6 +25,8 @@ AdminRepository adminRepository;
 EmailService emailService;
 @Autowired
 RoleRepository roleRepository;
+
+
 
 
 public Admin getByEmail(String email) throws Exception{

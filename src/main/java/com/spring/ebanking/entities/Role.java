@@ -1,5 +1,7 @@
 package com.spring.ebanking.entities;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -25,12 +28,12 @@ public class Role {
 	@Column(unique = true,nullable = false)
 	private String role;
 	
-	@OneToOne
-	private Client client;
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<Client> clients;
 	
-	@OneToOne
-	private Banquier banquier;
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<Banquier> banquiers;
 	
-	@OneToOne
-	private Admin admin;
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<Admin> admins;
 }

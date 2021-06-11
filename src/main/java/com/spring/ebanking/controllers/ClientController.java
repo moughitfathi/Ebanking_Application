@@ -2,21 +2,22 @@ package com.spring.ebanking.controllers;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.Client;
 import com.spring.ebanking.entities.Compte;
+import com.spring.ebanking.entities.CreneauDispo;
 import com.spring.ebanking.services.ClientService;
 
 import javassist.NotFoundException;
@@ -79,5 +80,19 @@ public class ClientController {
 		clientService.deleteClient(id);
 	}
 	
-
+		@GetMapping("/client/creneaudisp")
+		@ResponseStatus(HttpStatus.OK)
+		
+		public void getCreneauDispo(@RequestBody Client client) throws Exception {
+			clientService.getDateDispos(client);
+		}
+		
+		
+		@PostMapping("/client/choixrdv")
+		@ResponseStatus(HttpStatus.CREATED)
+		public void choixrdv(@RequestBody Client client,@RequestBody CreneauDispo creneauDispo ) {
+			clientService.choixRDV(client, creneauDispo);
+		}
+		
+		
 }

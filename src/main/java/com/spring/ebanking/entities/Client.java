@@ -23,11 +23,18 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class Client extends Personne {
 	
+	
+	
 		public Client( String prenom, String nom, String adresse, String tel, Date dateNaissance,
-			Date dateInscription) {
+			Date dateInscription,String email,String password,String cin,Role rolee) {
 		super( prenom, nom, adresse, tel, dateNaissance, dateInscription);
+		this.email=email;
+		this.password=password;
+		this.cin=cin;
+		this.role=rolee;
+		
 	}
-
+		
 		@Column(nullable = false,unique = true)
 		private	String email ;
 		private	String password ;
@@ -51,8 +58,8 @@ public class Client extends Personne {
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private List<Virement> virements;
 		
-		@OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 		//@Column(nullable = false)
+		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private Role role;
 		
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)

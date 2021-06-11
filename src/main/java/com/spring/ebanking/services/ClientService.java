@@ -102,8 +102,9 @@ public class ClientService {
 	}
 	
 	public List<Client> getClients() throws NotFoundException{
+		List<Client> clients = new ArrayList<Client>();
 		
-		List<Client> clients= clientRepository.findAll();
+		 clients= clientRepository.findAll();
 		if(clients.isEmpty()) throw new NotFoundException("No client found");
 		
 		return clients;

@@ -153,6 +153,7 @@ public class BanquierService {
 			}
  
 		banquier.setListeCreneauDispos(creneauxlocale);
+		banquierRepository.save(banquier);
 		
 	}
 	

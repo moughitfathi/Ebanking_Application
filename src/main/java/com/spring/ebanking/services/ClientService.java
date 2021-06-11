@@ -19,7 +19,9 @@ import com.spring.ebanking.entities.Compte;
 import com.spring.ebanking.entities.CreneauDispo;
 import com.spring.ebanking.entities.RDV;
 import com.spring.ebanking.entities.Role;
+import com.spring.ebanking.repositories.BanquierRepository;
 import com.spring.ebanking.repositories.ClientRepository;
+import com.spring.ebanking.repositories.CreneauDispoRepository;
 import com.spring.ebanking.repositories.RoleRepository;
 
 import javassist.NotFoundException;
@@ -42,10 +44,14 @@ public class ClientService {
 	@Autowired
 	BanquierService banquierService;
 	
+	@Autowired
+	BanquierRepository banquirrepo;
 	
 	@Autowired
 	AgenceService agenceService;
 	
+	@Autowired
+	CreneauDispoRepository creneaurepo;
 	
 	@Autowired
 	EmailService emailService;
@@ -201,6 +207,10 @@ public class ClientService {
 		banquier.getListeRendez_vous().add(objectrdv);
 		emailservice.sendConfirmationRendez_vous(banquier, client, creneaudispo);
 		emailservice.sendConfirmationRendez_vous(client,banquier, creneaudispo);
+		
+		creneaurepo.save(creneaudispo);
+		clientRepository.save(client);
+		banquirrepo.save(banquier);
 
 	
 	}

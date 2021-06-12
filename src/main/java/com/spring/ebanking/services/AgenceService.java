@@ -70,7 +70,7 @@ public class AgenceService {
 			throw new Exception("Une agence avec le Tel"+agence.getTel()+" existe déjà");
 		}
 		agenceRepo.save(agence);	
-		Admin admin = adminService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		Admin admin = adminService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		agence.setAdmin(admin);	
  	}
 	

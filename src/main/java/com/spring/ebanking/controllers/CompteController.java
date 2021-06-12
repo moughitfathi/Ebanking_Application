@@ -22,7 +22,7 @@ public class CompteController {
 	CompteService compteService ;
 
 	
-		@GetMapping("/compte{id}")
+		@GetMapping("/client/compte{id}")
 		public Compte getCompte(@PathVariable(name="id")Long id) throws NotFoundException {
 			
 			return compteService.getCompte(id);
@@ -30,7 +30,7 @@ public class CompteController {
 			
 		}
 		
-		@GetMapping("/comptes")
+		@GetMapping("/banquier/comptes")
 		public List<Compte> getComptes() throws NotFoundException{
 			
 			return compteService.getComptes();
@@ -38,20 +38,20 @@ public class CompteController {
 			
 		}
 		
-		@GetMapping("/compte{num}")
+		@GetMapping("/banquier/compte{num}")
 		public Compte getByNumero(@PathVariable(name="num")int numCompte) throws NotFoundException {
 			
 			return compteService.getByNumero(numCompte);
 		}
 		
 		
-		@PostMapping("/comptes")
+		@PostMapping("/banquier/comptes")
 		public void addCompte(@RequestBody Compte compte) throws Exception {
 			
 			compteService.addCompte(compte);
 		}
 		
-		@PutMapping("/compte{id}")
+		@PutMapping("/banquier/compte{id}")
 		public void updateCompte(@PathVariable Long id ,@RequestBody(required = false )Compte compte) throws NotFoundException, Exception {
 			
 			
@@ -59,13 +59,13 @@ public class CompteController {
 		}
 		
 		
-		@DeleteMapping("/compte{id}")
+		@DeleteMapping("/banquier/compte{id}")
 		public void deleteCompte(@PathVariable Long id) throws NotFoundException {
 			
 			compteService.deleteCompte(id);
 		}
 		
-		@GetMapping("/compte{id}/virementmultiple")
+		@GetMapping("/client/compte{id}/virementmultiple")
 		List<VirementMultiple> getVirementMultiple(Long id) throws NotFoundException{
 			
 			return compteService.virementMultiples(id);

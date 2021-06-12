@@ -1,7 +1,6 @@
 package com.spring.ebanking.entities;
 
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

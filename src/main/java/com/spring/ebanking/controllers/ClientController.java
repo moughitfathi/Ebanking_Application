@@ -30,13 +30,13 @@ public class ClientController {
 	ClientService clientService;
 	
 	
-	@GetMapping("/client{id}")
+	@GetMapping("/banquier/client{id}")
 	public Client getClient(@PathVariable(name="id")Long id) throws NotFoundException {
 		
 		return clientService.getClient(id);
 	}
 	
-	@GetMapping("/clients")
+	@GetMapping("/banquier/clients")
 	public List<Client> getClients() throws NotFoundException{
 		
 	
@@ -57,7 +57,7 @@ public class ClientController {
 		}
 		
 		//add client
-		@PostMapping("/clients")
+		@PostMapping("/banquier/clients")
 		public void  addClient(@RequestBody Client client) throws Exception {
 			
 			
@@ -66,7 +66,7 @@ public class ClientController {
 		
 		
 
-		@PutMapping("/client{id}")
+		@PutMapping("/banquier/client{id}")
 		public void updateClient(@PathVariable Long id ,@RequestBody Client client) throws Exception {
 			
 			
@@ -74,7 +74,7 @@ public class ClientController {
 		}
 	
 		
-		@DeleteMapping("/client{id}")
+		@DeleteMapping("/banquier/client{id}")
 	public void deleteClient(@PathVariable Long id) throws Exception {
 		
 		clientService.deleteClient(id);

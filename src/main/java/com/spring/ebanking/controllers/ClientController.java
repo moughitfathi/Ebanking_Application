@@ -1,5 +1,6 @@
 package com.spring.ebanking.controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -30,20 +31,20 @@ public class ClientController {
 	ClientService clientService;
 	
 	
-	@GetMapping("/banquier/client{id}")
+	@GetMapping("/banquier/client/{id}")
 	public Client getClient(@PathVariable(name="id")Long id) throws NotFoundException {
 		
 		return clientService.getClient(id);
 	}
 	
 	@GetMapping("/banquier/clients")
-	public List<Client> getClients() throws NotFoundException{
+	public Collection<Client> getClients() throws NotFoundException{
 		
 	
 		return clientService.getClients();
 	}
 	
-	@GetMapping("/client{id}/comptes")
+	@GetMapping("/client/{id}/comptes")
 	public List<Compte> getComptes(@PathVariable(name="id") Long id) throws NotFoundException{
 		
 		
@@ -66,7 +67,7 @@ public class ClientController {
 		
 		
 
-		@PutMapping("/banquier/client{id}")
+		@PutMapping("/banquier/client/{id}")
 		public void updateClient(@PathVariable Long id ,@RequestBody Client client) throws Exception {
 			
 			
@@ -74,7 +75,7 @@ public class ClientController {
 		}
 	
 		
-		@DeleteMapping("/banquier/client{id}")
+		@DeleteMapping("/banquier/client/{id}")
 	public void deleteClient(@PathVariable Long id) throws Exception {
 		
 		clientService.deleteClient(id);

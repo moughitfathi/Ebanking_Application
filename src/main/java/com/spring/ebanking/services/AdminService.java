@@ -7,10 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
-
->>>>>>> b8cca25a13f4dd0e98bd12e95f6171cacd009cca
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

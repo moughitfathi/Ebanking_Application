@@ -21,6 +21,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		
 		Personne personne=personneRepository.findByUsername(username).get();
 		UserDetailmpl userD= new UserDetailmpl(personne);
+		System.out.println(userD.getUsername());
 		return userD;
 		
 	}

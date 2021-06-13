@@ -1,8 +1,10 @@
 package com.spring.ebanking.services;
 
 import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -115,8 +117,8 @@ public class ClientService {
 				
 	}
 	
-	public List<Client> getClients() throws NotFoundException{
-		List<Client> clients = new ArrayList<Client>();
+	public Collection<Client> getClients() throws NotFoundException{
+		Collection<Client> clients;
 		
 		 clients= clientRepository.findAll();
 		if(clients.isEmpty()) throw new NotFoundException("No client found");

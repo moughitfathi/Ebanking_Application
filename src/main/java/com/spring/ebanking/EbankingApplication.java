@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.spring.ebanking.repositories.ClientRepository;
 
@@ -23,6 +25,10 @@ public class EbankingApplication{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EbankingApplication.class, args);
+		
+		PasswordEncoder pe=new BCryptPasswordEncoder();
+		String p=pe.encode("0123456");
+		System.out.println(p);
 	}
 
 	/*

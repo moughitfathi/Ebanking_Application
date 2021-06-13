@@ -24,7 +24,7 @@ public class VirementController {
 	VirementMultipleService virementMultipleService;
 	
 	
-	@GetMapping("/virementmultiple")
+	@GetMapping("/client/virementmultiple")
 	@ResponseStatus(HttpStatus.OK)
 	public VirementMultiple getVirementMultiple(@RequestParam(value = "id") Long id) throws Exception{
 		
@@ -33,17 +33,17 @@ public class VirementController {
 		
 	}
 	
-	@PostMapping("/virementmultiple")
+	@PostMapping("/client/virementmultiple")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void EffectuerVirement(@RequestBody VirementMultiple virementMultiple)  throws Exception{
 		virementMultipleService.EffectuerVirmentmultiple(virementMultiple);
 	}
-	@GetMapping("/virementmultiple/{id}/virementmultiplebeneficiaires")
+	@GetMapping("/client/virementmultiple/{id}/virementmultiplebeneficiaires")
 	@ResponseStatus(HttpStatus.OK)
 	public List<VirementMulttipleBeneficiare> getVirementMulttipleBeneficiares(@PathVariable(value="id") Long id) throws Exception{
 		return virementMultipleService.getVirementMultipleBeneficiaire(id);
 	}
-	@PutMapping("/virementmultiple/{id}/confirme")
+	@PutMapping("/client/virementmultiple/{id}/confirme")
 	@ResponseStatus(HttpStatus.OK)
 	public void confirme(@PathVariable(value="id") Long id,@RequestBody String motpasse) {
 		virementMultipleService.confirmer(id, motpasse);

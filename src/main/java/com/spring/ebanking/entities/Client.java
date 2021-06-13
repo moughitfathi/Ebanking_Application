@@ -25,22 +25,20 @@ public class Client extends Personne {
 	
 	
 	
-		public Client( String prenom, String nom, String adresse, String tel, Date dateNaissance,
-			Date dateInscription,String email,String password,String cin,Role rolee) {
-		super( prenom, nom, adresse, tel, dateNaissance, dateInscription);
-		this.email=email;
-		this.password=password;
-		this.cin=cin;
-		this.role=rolee;
-		
-	}
-		
-		@Column(nullable = false,unique = true)
-		private	String email ;
-		private	String password ;
-		@Column(nullable = false,unique = true)
-		private String cin ;
-		
+	/*
+	 * public Client( String prenom, String nom, String adresse, String tel, Date
+	 * dateNaissance, Date dateInscription,String email,String password,String
+	 * cin,Role rolee) { super( prenom, nom, adresse, tel, dateNaissance,
+	 * dateInscription); this.email=email; this.password=password; this.cin=cin;
+	 * this.role=rolee;
+	 * 
+	 * }
+	 * 
+	 * @Column(nullable = false,unique = true) private String email ; private String
+	 * password ;
+	 * 
+	 * @Column(nullable = false,unique = true) private String cin ;
+	 */		
 		
 		
 
@@ -59,8 +57,7 @@ public class Client extends Personne {
 		private List<Virement> virements;
 		
 		//@Column(nullable = false)
-		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-		private Role role;
+		
 		
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private Banquier banquier;

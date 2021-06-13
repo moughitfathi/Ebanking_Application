@@ -17,11 +17,13 @@ import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.Client;
 import com.spring.ebanking.entities.Compte;
 import com.spring.ebanking.entities.CreneauDispo;
+import com.spring.ebanking.entities.Personne;
 import com.spring.ebanking.entities.RDV;
-import com.spring.ebanking.entities.Role;
+
 import com.spring.ebanking.repositories.BanquierRepository;
 import com.spring.ebanking.repositories.ClientRepository;
 import com.spring.ebanking.repositories.CreneauDispoRepository;
+import com.spring.ebanking.repositories.PersonneRepository;
 import com.spring.ebanking.repositories.RoleRepository;
 
 import javassist.NotFoundException;
@@ -29,6 +31,8 @@ import javassist.NotFoundException;
 @Service
 public class ClientService {
 	
+	@Autowired 
+	PersonneRepository personneRepository; 
 	
 	@Autowired
 	ClientRepository clientRepository;
@@ -69,8 +73,12 @@ public class ClientService {
 				}
 				if(clientRepository.findByTel(client.getTel()).isPresent()) {
 					throw new Exception("This Tel already exists try another one .");
-					
+				
 				}
+				if(personneRepository.findByUsername(client.getUsername()).isPresent())
+					throw new Exception("try with anothor Username ");
+				
+				
 				String password =client.getPassword() ;
 				if(!password.isEmpty() && password!=null) {
 					client.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));	
@@ -84,7 +92,7 @@ public class ClientService {
 				client.setRole(roleRepository.findByRole("client")
 						.orElseThrow(()-> new NotFoundException("role not found")));
 				
-				Banquier banquier = banquierService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+				Banquier banquier = banquierService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 				
 				client.setBanquier(banquier);
 				
@@ -148,11 +156,16 @@ public class ClientService {
 		if(clientRepository.findByEmail(client.getEmail()).isPresent() && !(clientRepository.findByEmail(client.getEmail()).get()==updateClient))
 		throw new Exception("try with anothor email");
 		
+		
+		if(personneRepository.findByUsername(client.getUsername()).isPresent() && !(personneRepository.findByUsername(client.getUsername()).get()==updateClient))
+		throw new Exception("try with anothor Username ");
+		
 		if(clientRepository.findByCin(client.getCin()).isPresent() &&  !(clientRepository.findByCin(client.getCin()).get()==updateClient)                 )
 		throw new Exception("try with anothor cin ");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd"); 
 
-		
+        
+        if(client.getUsername()!=null && !client.getUsername().isEmpty()) updateClient.setUsername(client.getUsername());
 		if(client.getPrenom()!=null && !client.getPrenom().isEmpty()) updateClient.setPrenom(client.getPrenom());
 		if(client.getNom()!=null && !client.getNom().isEmpty()) updateClient.setNom(client.getNom());
 		if(client.getAdresse()!=null && !client.getAdresse().isEmpty()) updateClient.setAdresse(client.getAdresse());
@@ -173,6 +186,13 @@ public class ClientService {
 		
 	}
 	
+	public Client getByUsername(String username) throws Exception
+	{
+		Personne p= personneRepository.findByUsername(username).orElseThrow(() -> new Exception("Aucun client avec l'username "+username+" trouvé"));
+		return clientRepository.findById(p.getId()).orElseThrow(() -> new Exception("Aucun client avec l'username "+username+" trouvé"));
+	}
+	
+	
 
 	
 	//delete Customer
@@ -182,7 +202,7 @@ public class ClientService {
 		if(!clientRepository.findById(id).isPresent()) throw new NotFoundException("No customer with this id :"+id);
 		clientRepository.deleteById(id);
 		
-		Banquier banquier = banquierService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+		Banquier banquier = banquierService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		System.out.println("The customer with id : "+id+" was deleted by "+banquier);
 	
 	}

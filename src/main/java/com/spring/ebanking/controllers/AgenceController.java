@@ -25,21 +25,21 @@ public class AgenceController {
 	
 	
 	//recuperer   les agences 
-	@GetMapping("/listeagences")
+	@GetMapping("/admin/listeagences")
 	public List<Agence> getAgences(@RequestParam(name="id", required=false) Long id) throws Exception
 	{
 		return agenceservice.getAgences(id);
 	}
 
 	//recuperer les banquiers d'une agence
-	@GetMapping("/agence/{id}/banquiers")
+	@GetMapping("/admin/agence/{id}/banquiers")
 	public List<Banquier> getBanquiers(@PathVariable(name="id") Long id) throws Exception
 	{
 		return agenceservice.getBanquiers(id);
 	}
 	
 	//les clients enregistrés dans l'agence
-	@GetMapping("/agence/{id}/clients")
+	@GetMapping("/banquier/agence/{id}/clients")
 	public List<Client> getClients(@PathVariable(name="id") Long id) throws Exception
 	{
 		return agenceservice.getClients(id);
@@ -48,14 +48,14 @@ public class AgenceController {
 	
 	
 	//ajoputer une agence
-	@PostMapping("/agences")
+	@PostMapping("/admin/agences")
 	public void addAgence(@RequestBody Agence agence)  throws  Exception
 	{
 		agenceservice.addAgence(agence);
 	}
 	
 	//modifier une agence
-	@PutMapping("/agence/{id}")
+	@PutMapping("/admin/agence/{id}")
 	public void updateAgence(@PathVariable Long id , @RequestBody(required=false) Agence agence)  throws Exception
 	{
 		agenceservice.updateAgence(id,agence);
@@ -66,7 +66,7 @@ public class AgenceController {
 
 
 	//supprimer une agence
-	@DeleteMapping("/agence/{id}")
+	@DeleteMapping("/admin/agence/{id}")
 	public void deleteAgence(@PathVariable Long id) throws Exception
 	{
 		agenceservice.removeAgence(id);

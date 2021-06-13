@@ -7,17 +7,27 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b8cca25a13f4dd0e98bd12e95f6171cacd009cca
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.ebanking.entities.Admin;
+import com.spring.ebanking.entities.Personne;
 import com.spring.ebanking.repositories.AdminRepository;
+import com.spring.ebanking.repositories.PersonneRepository;
 import com.spring.ebanking.repositories.RoleRepository;
 
 import javassist.NotFoundException;
 
 @Service
 public class AdminService {
+@Autowired
+PersonneRepository personneRepository;
+
+	
 @Autowired 
 AdminRepository adminRepository;
 @Autowired
@@ -26,13 +36,13 @@ EmailService emailService;
 RoleRepository roleRepository;
 
 
-
-
-public Admin getByEmail(String email) throws Exception{
-	Admin admin = adminRepository.findByEmail(email).orElseThrow(
-			()->  new Exception("Admin with email "+email+" not found!"));
-	return admin;
+public Admin getByUsername(String username) throws Exception
+{
+	Personne p= personneRepository.findByUsername(username).orElseThrow(() -> new Exception("Aucun Admin avec l'username "+username+" trouvé"));
+	return adminRepository.findById(p.getId()).orElseThrow(() -> new Exception("Aucun Admin avec l'username "+username+" trouvé"));
 }
+
+
 
 public Admin getById(Long id)throws NotFoundException {
 		Admin admin = adminRepository.findById(id).orElseThrow(()->
@@ -66,6 +76,10 @@ public void addAdmin(Admin admin)throws Exception {
 	}else {
 		throw new Exception("password not specified!");
 	}
+	
+	if(personneRepository.findByUsername(admin.getUsername()).isPresent())
+		throw new Exception("try with anothor Username ");
+	
 	admin.setRole(roleRepository.findByRole("admin").orElseThrow(
 			()-> new Exception("le role dont le no est admin est introuvable!")));
 	admin.setDateInscription(new Date());
@@ -93,6 +107,13 @@ public void updateAdmin(Admin admin,Long id)  throws Exception{
 	}
 	
 	DateFormat dateFormat =  new SimpleDateFormat("yyyy-mm-dd");
+	
+	
+	if(personneRepository.findByUsername(admin.getUsername()).isPresent() && !(personneRepository.findByUsername(admin.getUsername()).get().equals(adminAjour.getUsername())))
+		throw new Exception("try with anothor Username ");
+	
+//else
+	if(admin.getUsername()!=null && !admin.getUsername().isEmpty()) adminAjour.setUsername(admin.getUsername());
 	
 	if(admin.getNom()!=null && !admin.getNom().isEmpty()) adminAjour.setNom(admin.getNom());
 	if(admin.getPrenom()!=null && !admin.getPrenom().isEmpty()) adminAjour.setPrenom(admin.getPrenom());

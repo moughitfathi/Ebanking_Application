@@ -94,5 +94,10 @@ public class ClientController {
 			clientService.choixRDV(client, creneauDispo);
 		}
 		
+		@GetMapping("/client/username/{username}")
+		public Client getClientByUsername(String username) throws Exception {
+			
+			return clientService.getByUsername(username);
+		}
 		
 }

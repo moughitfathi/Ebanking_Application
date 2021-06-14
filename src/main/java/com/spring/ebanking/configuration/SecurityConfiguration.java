@@ -2,7 +2,7 @@ package com.spring.ebanking.configuration;
 
 import java.util.Arrays;
 
-
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,51 +23,42 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private  UserDetailServiceImpl uservice;
-	
-	@Bean 
+	private UserDetailServiceImpl uservice;
+
+	@Bean
 	PasswordEncoder passencoder() {
-		 return new BCryptPasswordEncoder();
-			
-		}
-	
+		return new BCryptPasswordEncoder();
+
+	}
+
 	@Bean
 	public DaoAuthenticationProvider getProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(uservice);
 		provider.setPasswordEncoder(passencoder());
 		return provider;
-		
+
 	}
-	
-	
-	
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-		final  CorsConfiguration configuration = new CorsConfiguration();
+		final CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-		configuration.setAllowedMethods(Arrays.asList("HEAD",
-				"GET", "POST", "PUT", "DELETE"));
-		configuration.setAllowedHeaders(Arrays.asList("accept",
-				"accept-encoding",
-				"authorization",
-				"content-type",
-				"dnt",
-				"origin",
-				"user-agent",
-				"x-csrftoken",
-				"x-requested-with"));
-		
-		
+		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(Arrays.asList("accept", "accept-encoding", "authorization", "content-type",
+				"dnt", "origin", "user-agent", "x-csrftoken", "x-requested-with"));
+
 		configuration.setAllowCredentials(true);
-		
+
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-		final  UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 
-	
+	@Autowired
+	private DataSource dataSource;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("admin").password(passencoder().encode("0123")).roles("Admin");
@@ -75,23 +66,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication().withUser("client").password(passencoder().encode("0123")).roles("Client");
 		
 		
+		auth.jdbcAuthentication()
+		.dataSource(dataSource)
+		.usersByUsernameQuery("select username as principal,password as credentials,active from personne where username=?")
+		.authoritiesByUsernameQuery("select username as principal , role as role from personne p , role r where username = ? and p.role_id =r.id")
+		.rolePrefix("ROLE_").passwordEncoder(passencoder());
+		
 	}
-	
-	@Override
+
+@Override
 	protected void configure(HttpSecurity http)  throws Exception{
 	//at the end remove crsf().disable()
 		
-		//http.formLogin().loginPage("/login")
-		
 		http
-		.cors().and().
-		authorizeRequests()
-		.antMatchers("/admin**/**/**/**").hasRole("Admin")
+		.cors().and()
+		.authorizeRequests()
+		.antMatchers("/admin**/**/**").hasRole("Admin")
 		.antMatchers("/banquier**/**/**/**").hasRole("Banquier")
 		.antMatchers("/client**/**/**/**").hasRole("Client")
 		.antMatchers("/").hasRole("USER")
 		.and().formLogin().and().csrf().disable();
-		
 		
 		
 		

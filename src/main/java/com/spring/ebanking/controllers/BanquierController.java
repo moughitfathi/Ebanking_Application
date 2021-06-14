@@ -1,5 +1,6 @@
 package com.spring.ebanking.controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class BanquierController {
 	
 
 	//recuperer les banquiers
-	@GetMapping("/admin/banquiers")
+	@GetMapping("/admin/banquiers/{id}")
 	public List<Banquier> getBanquiers(@RequestParam(name="id", required=false) Long id) throws Exception
 	{	
 		return  banquierservice.getBanquiers(id);
@@ -85,7 +86,7 @@ public class BanquierController {
 	}
 	@GetMapping("/banquier/rendez-vous")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RDV> getRendezVous(@RequestBody Banquier banquier ){
+	public Collection<RDV> getRendezVous(@RequestBody Banquier banquier ){
 		return banquier.getListeRendez_vous();
 	}
 	

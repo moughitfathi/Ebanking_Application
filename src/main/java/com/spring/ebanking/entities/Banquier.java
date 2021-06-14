@@ -1,6 +1,8 @@
 package com.spring.ebanking.entities;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,11 +31,11 @@ public class Banquier extends Personne {
 	private Agence agence;
 	
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
-	private List<RDV>  listeRendez_vous;
+	private Collection<RDV>  listeRendez_vous;
 	
 	
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
-   List<Client> listeClients;
+  private Collection<Client> listeClients;
    
    @ManyToOne
    @JoinColumn(name="ID_ADMIN")

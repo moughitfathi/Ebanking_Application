@@ -61,9 +61,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password(passencoder().encode("0123")).roles("Admin");
-		auth.inMemoryAuthentication().withUser("banquier").password(passencoder().encode("0123")).roles("Banquier");
-		auth.inMemoryAuthentication().withUser("client").password(passencoder().encode("0123")).roles("Client");
+		auth.inMemoryAuthentication().withUser("admin").password(passencoder().encode("0123")).roles("admin");
+		auth.inMemoryAuthentication().withUser("banquier").password(passencoder().encode("0123")).roles("banquier");
+		auth.inMemoryAuthentication().withUser("client").password(passencoder().encode("0123")).roles("client");
 		
 		
 		auth.jdbcAuthentication()
@@ -81,11 +81,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.cors().and()
 		.authorizeRequests()
-		.antMatchers("/admin**/**/**").hasRole("Admin")
-		.antMatchers("/banquier**/**/**/**").hasRole("Banquier")
-		.antMatchers("/client**/**/**/**").hasRole("Client")
+		.antMatchers("/admin**/**/**").hasRole("admin")
+		.antMatchers("/banquier**/**/**/**").hasRole("banquier")
+		.antMatchers("/client**/**/**/**").hasRole("client")
 		.antMatchers("/").hasRole("USER")
-		.and().formLogin().and().csrf().disable();
+		.and().httpBasic().and().csrf().disable();
+		super.configure(http);
 		
 		
 		

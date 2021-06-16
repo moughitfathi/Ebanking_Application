@@ -9,6 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,7 @@ public class Banquier extends Personne {
 	 */
 	@ManyToOne
 	@JoinColumn(name="ID_AGENCE")
+	@JsonIgnore
 	private Agence agence;
 	
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
@@ -35,10 +40,12 @@ public class Banquier extends Personne {
 	
 	
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
+   @JsonIgnore
   private Collection<Client> listeClients;
    
    @ManyToOne
    @JoinColumn(name="ID_ADMIN")
+	@JsonIgnore
    private Admin admin;
    
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)

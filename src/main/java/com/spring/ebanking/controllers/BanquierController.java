@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +26,8 @@ import com.spring.ebanking.services.ClientService;
 import javassist.NotFoundException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class BanquierController {
 	@Autowired
 	BanquierService banquierservice;
@@ -41,7 +43,7 @@ public class BanquierController {
 	}
 	
 	
-	@GetMapping("/admin/banquier/username/{username}")
+	@GetMapping("/banquier/username/{username}")
 	public Banquier getByUsername(@PathVariable(name="username") String username) throws Exception
 	{
 		return banquierservice.getByUsername(username);

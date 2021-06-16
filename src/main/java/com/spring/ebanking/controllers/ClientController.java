@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,8 @@ import com.spring.ebanking.services.ClientService;
 import javassist.NotFoundException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class ClientController {
 	
 	
@@ -95,10 +98,10 @@ public class ClientController {
 			clientService.choixRDV(client, creneauDispo);
 		}
 		
-		@GetMapping("/client/username/{username}")
-		public Client getClientByUsername(String username) throws Exception {
+		@GetMapping("/client/username/{u}")
+		public Client getClientByUsername(@PathVariable String u) throws Exception {
 			
-			return clientService.getByUsername(username);
+			return clientService.getByUsername(u);
 		}
 		
 }

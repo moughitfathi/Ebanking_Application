@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -60,9 +63,11 @@ public class Client extends Personne {
 		
 		
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@JsonIgnore
 		private Banquier banquier;
 		
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@JsonIgnore
 		private Agence agence ;
 		
 		

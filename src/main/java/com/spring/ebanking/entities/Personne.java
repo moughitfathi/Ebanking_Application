@@ -13,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,6 +49,7 @@ public  abstract class  Personne {
 	@Column(nullable = false,unique = true)
 	 private String username ;
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Role role;
 	
 	private boolean active=true;

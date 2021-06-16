@@ -8,6 +8,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ public class VirementMultiple  extends Virement{
 	@Column(nullable=false)
 	private String status="enregistre";
 	
+    @JsonIgnore
 	@OneToMany(mappedBy = "virementMultiple")
 	private List<VirementMulttipleBeneficiare> virementMultipleBeneficiare;
 

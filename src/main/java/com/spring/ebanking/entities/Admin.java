@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +24,12 @@ public class Admin extends Personne {
 	 * @Column(nullable= false,unique = true) private String cin;
 	 */
 
+    @JsonIgnore
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+    private List<Agence> agences;
 
-	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
-	private List<Agence> agences;
-	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
 	List<Banquier> listeBanquiers;
 
 	

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,10 +27,11 @@ public class Beneficiare {
 	private String nom;
 	private String prenom;
 	private int numeroDecompte ;
-	
+    @JsonIgnore
 	@OneToMany(mappedBy="beneficiare",fetch = FetchType.LAZY)
 	private List<VirementMulttipleBeneficiare> virementMultipleBeneficiare;
 	
+    @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_client")
 	private Client client ;

@@ -14,6 +14,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,9 +39,11 @@ public abstract class Virement {
 	private BigDecimal mentant;
 	private String motif;
 	
+    @JsonIgnore
 	@ManyToOne@JoinColumn(name = "id_compte")
 	private Compte compte;
-	@ManyToOne@JoinColumn(name = "id_client")
+    @JsonIgnore
+    @ManyToOne@JoinColumn(name = "id_client")
 	private Client client;
 
 }

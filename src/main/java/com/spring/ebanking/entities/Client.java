@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -42,26 +45,28 @@ public class Client extends Personne {
 		
 		
 
+	     @JsonIgnore
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private List<Compte> comptes;
-		
+
+	     @JsonIgnore
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private List<Beneficiare> beneficiaires;
 		
-		
+	     @JsonIgnore
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private List<RDV> rendezVous;
 		
-		
+	     @JsonIgnore
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private List<Virement> virements;
 		
 		//@Column(nullable = false)
 		
-		
+	     @JsonIgnore
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private Banquier banquier;
-		
+	     @JsonIgnore
 		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 		private Agence agence ;
 		

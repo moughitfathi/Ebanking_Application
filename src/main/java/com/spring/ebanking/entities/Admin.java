@@ -28,8 +28,8 @@ public class Admin extends Personne {
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
     private List<Agence> agences;
 
-    @JsonIgnore
-    @OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
+	@JsonIgnore
 	List<Banquier> listeBanquiers;
 
 	

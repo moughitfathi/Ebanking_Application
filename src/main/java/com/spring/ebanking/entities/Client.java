@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,28 +47,27 @@ public class Client extends Personne {
 		
 
 	     @JsonIgnore
-		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY)
 		private List<Compte> comptes;
 
 	     @JsonIgnore
-		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY)
 		private List<Beneficiare> beneficiaires;
 		
 	     @JsonIgnore
-		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY)
 		private List<RDV> rendezVous;
 		
 	     @JsonIgnore
-		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY)
 		private List<Virement> virements;
 		
 		//@Column(nullable = false)
-		
-	     @JsonIgnore
-		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+		@ManyToOne(fetch=FetchType.LAZY)
 		private Banquier banquier;
-	     @JsonIgnore
-		@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+		@ManyToOne(fetch=FetchType.LAZY)
 		private Agence agence ;
 		
 		

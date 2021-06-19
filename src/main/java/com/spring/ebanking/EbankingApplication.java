@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -11,11 +12,12 @@ import com.spring.ebanking.repositories.ClientRepository;
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableWebSecurity
 
 public class EbankingApplication{
 	
 	@Autowired
-	ClientRepository clientRepository;
+	//ClientRepository clientRepository;
 	
 	/*
 	 * @Autowired private RepositoryRestConfiguration restConfiguration;
@@ -34,7 +36,7 @@ public class EbankingApplication{
 	/*
 	 * @Override public void run(String... args) throws Exception {
 	 * restConfiguration.exposeIdsFor(Client.class);
-	 * 
+	 * 8080
 	 * Date d1 = new Date(); Date d2 = new Date(); Role role = new Role();
 	 * role.setRole("client");
 	 * 
@@ -43,7 +45,9 @@ public class EbankingApplication{
 	 * 
 	 * 
 	 * }
-	 */
+<<<<<<< HEAD
+	 */	
+	
 }
 
 

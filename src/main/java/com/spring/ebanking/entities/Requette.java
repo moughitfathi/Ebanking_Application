@@ -20,9 +20,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy=InheritanceType.JOINED)
 
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="Type",length = 3)
 public abstract class  Requette {
 
 	@Id

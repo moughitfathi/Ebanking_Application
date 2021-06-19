@@ -31,7 +31,6 @@ public class Beneficiare {
 	@OneToMany(mappedBy="beneficiare",fetch = FetchType.LAZY)
 	private List<VirementMulttipleBeneficiare> virementMultipleBeneficiare;
 	
-    @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_client")
 	private Client client ;

@@ -54,6 +54,13 @@ public class ClientController {
 		return clientService.getComptes(id);
 		
 	}
+	@GetMapping("/banquier/client/{id}/comptes")
+	public List<Compte> getComptess(@PathVariable(name="id") Long id) throws NotFoundException{
+		
+		
+		return clientService.getComptes(id);
+		
+	}
 		@GetMapping("/client{id}/beneficiaires")
 		public List<Beneficiare> getBeneficiaires(@PathVariable(name="id")Long id) throws NotFoundException{
 			
@@ -61,7 +68,7 @@ public class ClientController {
 		}
 		
 		//add client
-		@PostMapping("/banquier/clients")
+		@PostMapping("/banquier/client")
 		public void  addClient(@RequestBody Client client) throws Exception {
 			
 			
@@ -98,5 +105,10 @@ public class ClientController {
 			clientService.choixRDV(client, creneauDispo);
 		}
 		
+		@GetMapping("/client/username/{u}")
+		public Client getClientByUsername(@PathVariable String u) throws Exception {
+			
+			return clientService.getByUsername(u);
+		}
 		
 }

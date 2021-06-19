@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,8 +50,8 @@ public  abstract class  Personne {
 	@Column(nullable = false,unique = true)
 	 private String username ;
 	
-    @JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Role role;
 	
 	private boolean active=true;

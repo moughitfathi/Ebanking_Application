@@ -39,10 +39,8 @@ public abstract class Virement {
 	private BigDecimal mentant;
 	private String motif;
 	
-    @JsonIgnore
 	@ManyToOne@JoinColumn(name = "id_compte")
 	private Compte compte;
-    @JsonIgnore
     @ManyToOne@JoinColumn(name = "id_client")
 	private Client client;
 

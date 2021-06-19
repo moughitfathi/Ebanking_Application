@@ -1,5 +1,6 @@
 package com.spring.ebanking.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,14 +29,14 @@ public class Role {
 	private String role;
 	
     @JsonIgnore
-	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY)
 	private List<Client> clients;
 	
     @JsonIgnore
-	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY)
 	private List<Banquier> banquiers;
 	
     @JsonIgnore
-	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "role",fetch=FetchType.LAZY)
 	private List<Admin> admins;
 }

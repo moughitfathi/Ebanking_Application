@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +37,8 @@ public class Agence {
 	private String email;
 	@Column(unique = true,nullable  = false)
 	private String tel;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="agence",fetch=FetchType.LAZY)
 	private List<Banquier>  listeBanquiers;
 	
@@ -46,7 +49,8 @@ public class Agence {
     @JsonIgnore
 	@OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
 	private List<Client> listeClients;
-    @JsonIgnore
+    
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
 	@JoinColumn(name="ID_ADMIN")
 	private Admin admin;

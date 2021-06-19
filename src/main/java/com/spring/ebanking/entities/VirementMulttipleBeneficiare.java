@@ -24,10 +24,8 @@ public class VirementMulttipleBeneficiare {
 	
 	private BigDecimal montant;
 	
-    @JsonIgnore
 	@ManyToOne@JoinColumn(name = "id_virment_mult")
 	private VirementMultiple virementMultiple;
-    @JsonIgnore
     @ManyToOne
 	@JoinColumn(name="id_benificiaire")
 	private Beneficiare beneficiare;

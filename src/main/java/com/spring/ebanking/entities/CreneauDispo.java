@@ -1,5 +1,6 @@
 package com.spring.ebanking.entities;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,9 +26,9 @@ public class CreneauDispo {
 	private Date dateDebut;																									
 	@Column(nullable = false)
 	private Date dateFin;
-	private Boolean Status=false;  
+	private Boolean status=false;  
 	
-    @JsonIgnore
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne
 	@JoinColumn(name="ID_BANQUIER")
 	private Banquier banquier;

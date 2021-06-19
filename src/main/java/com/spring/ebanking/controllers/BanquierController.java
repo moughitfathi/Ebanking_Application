@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,13 +83,22 @@ public class BanquierController {
 	//set les creno dispo:
 	@PostMapping("/banquier/addcreno")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void addCreno(@RequestBody List<CreneauDispo> ListeCrean,@RequestBody Banquier banquier) {
+	public void addCreno(@RequestBody CreneauDispo ListeCrean) throws Exception {
 		
-		banquierservice.addCreneauDispo(ListeCrean, banquier);
+		banquierservice.addCreneauDispo(ListeCrean);
 	}
+	
+	@GetMapping("/banquier/creneaux")
+	public Collection<CreneauDispo> getCreneaux() throws Exception{
+		return banquierservice.getMyCreneaux();
+	}
+	
 	@GetMapping("/banquier/rendez-vous")
 	@ResponseStatus(HttpStatus.OK)
-	public Collection<RDV> getRendezVous(@RequestBody Banquier banquier ){
+	public Collection<RDV> getRendezVous() throws Exception{
+
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Banquier banquier = getByUsername(username);
 		return banquier.getListeRendez_vous();
 	}
 	

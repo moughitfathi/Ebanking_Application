@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,17 +34,17 @@ public class Compte {
 	private int numero ;
 	@Column(nullable = false)
 	private BigDecimal solde ;
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JsonIgnore
+
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Client client;
 	
-	@OneToMany(mappedBy = "compte",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JsonIgnore
+    @JsonIgnore
+	@OneToMany(mappedBy = "compte",fetch=FetchType.LAZY)
 	private List<Virement> virements;
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JsonIgnore
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch=FetchType.LAZY)
+
 	private Agence agence;
 	
 	

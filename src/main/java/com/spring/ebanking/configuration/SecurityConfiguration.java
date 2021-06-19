@@ -1,7 +1,10 @@
 package com.spring.ebanking.configuration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +22,29 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.spring.ebanking.entities.Admin;
+import com.spring.ebanking.entities.Role;
+import com.spring.ebanking.repositories.RoleRepository;
+import com.spring.ebanking.services.AdminService;
+
+import javassist.NotFoundException;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailServiceImpl uservice;
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	RoleRepository roleRepo;
 
 	@Bean
 	PasswordEncoder passencoder() {
 		return new BCryptPasswordEncoder();
 
 	}
-
+	
 	@Bean
 	public DaoAuthenticationProvider getProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -85,8 +99,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/banquier**/**/**/**").hasRole("banquier")
 		.antMatchers("/client**/**/**/**").hasRole("client")
 		.antMatchers("/").hasRole("USER")
-		.and().httpBasic().and().csrf().disable();
+		.and()
+		.httpBasic()
+		.and()
+		.csrf().disable();
 		super.configure(http);
+		//.formLogin().and().csrf().disable();
 		
 		
 		

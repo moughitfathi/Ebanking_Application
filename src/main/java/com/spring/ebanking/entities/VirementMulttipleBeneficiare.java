@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,7 @@ public class VirementMulttipleBeneficiare {
 	
 	@ManyToOne@JoinColumn(name = "id_virment_mult")
 	private VirementMultiple virementMultiple;
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name="id_benificiaire")
 	private Beneficiare beneficiare;
 }

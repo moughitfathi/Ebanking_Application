@@ -24,10 +24,10 @@ public class Admin extends Personne {
 	 * @Column(nullable= false,unique = true) private String cin;
 	 */
 
-
+    @JsonIgnore
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
-	@JsonIgnore
-	private List<Agence> agences;
+    private List<Agence> agences;
+
 	@OneToMany(mappedBy="admin",fetch =FetchType.LAZY)
 	@JsonIgnore
 	List<Banquier> listeBanquiers;

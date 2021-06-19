@@ -20,7 +20,7 @@ import com.spring.ebanking.services.AgenceService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200/")
 
 public class AgenceController {
 	@Autowired

@@ -2,6 +2,7 @@ package com.spring.ebanking.services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -149,24 +150,41 @@ public class BanquierService {
 	
 	
 	//ajouter les creneau disponibles
-	public void addCreneauDispo(List<CreneauDispo> creneaudispos, Banquier banquier) {
+	public void addCreneauDispo(CreneauDispo creneaudispos) throws Exception {
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Banquier banquier = getByUsername(username);
+
 		
-		List<CreneauDispo> creneauxlocale=new ArrayList<CreneauDispo>();
-		CreneauDispo  creneaudispo=new CreneauDispo();
+	   /*	List<CreneauDispo> creneauxlocale=new ArrayList<CreneauDispo>();
+	     *	CreneauDispo  creneaudispo=new CreneauDispo();
 		
-		DateFormat dateformat=new SimpleDateFormat("yyyy-mm-dd");
-		for (CreneauDispo i : creneaudispos) {
-			if(i.getDateDebut()!=null && !(dateformat.format(i.getDateDebut()).isEmpty())) creneaudispo.setDateDebut(i.getDateDebut());
-			if(i.getDateFin()!=null && !(dateformat.format(i.getDateFin()).isEmpty()))  creneaudispo.setDateFin(i.getDateFin());
-		
-			creneauxlocale.add(creneaudispo);
-			creneauRepository.save(creneaudispo);
+	      	DateFormat dateformat=new SimpleDateFormat("yyyy-mm-dd");
+	      *  for (CreneauDispo i : creneaudispos) {
+			
+			 * if(i.getDateDebut()!=null &&
+			 * !(dateformat.format(i.getDateDebut()).isEmpty()))
+			 * creneaudispo.setDateDebut(i.getDateDebut()); if(i.getDateFin()!=null &&
+			 * !(dateformat.format(i.getDateFin()).isEmpty()))
+			 * creneaudispo.setDateFin(i.getDateFin());
+			 */
+     
+     
+
+		creneaudispos.setBanquier(banquier);
+		    banquier.getListeCreneauDispos().add(creneaudispos);
+			
+			//creneauxlocale.add(creneaudispo);
+			creneauRepository.save(creneaudispos);
+			banquierRepository.save(banquier);
 			}
  
-		banquier.setListeCreneauDispos(creneauxlocale);
-		banquierRepository.save(banquier);
+		//banquier.setListeCreneauDispos(creneauxlocale);
+		//banquierRepository.save(banquier);
 		
-	}
+
+
+
+
 	
 	// methode to activate or deactivate client
 	public void Sus_Act_client(Client client) {
@@ -174,6 +192,15 @@ public class BanquierService {
 		else client.setActive(true);
 	}
 	
+	public List<CreneauDispo> getMyCreneaux() throws Exception{
+		List mycreneaux=new ArrayList<CreneauDispo>();
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Banquier banquier = getByUsername(username);
+	    mycreneaux=banquier.getListeCreneauDispos();
+	    return mycreneaux;
+	    
+		
+	}
 	
 	
 

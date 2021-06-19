@@ -30,24 +30,26 @@ public class Banquier extends Personne {
 	 * 
 	 * @Column(unique = true,nullable = false) private String cin;
 	 */
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne
 	@JoinColumn(name="ID_AGENCE")
-	
 	private Agence agence;
 	
+    
+    @JsonIgnore
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)
 	private Collection<RDV>  listeRendez_vous;
 	
-	
+    @JsonIgnore
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
-   @JsonIgnore
   private Collection<Client> listeClients;
    
-   @ManyToOne
+ 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne
    @JoinColumn(name="ID_ADMIN")
-	@JsonIgnore
    private Admin admin;
    
+    @JsonIgnore
    @OneToMany(mappedBy="banquier",fetch = FetchType.LAZY)
    List<CreneauDispo> listeCreneauDispos;
 }

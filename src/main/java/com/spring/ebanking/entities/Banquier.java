@@ -32,7 +32,7 @@ public class Banquier extends Personne {
 	 */
 	@ManyToOne
 	@JoinColumn(name="ID_AGENCE")
-	@JsonIgnore
+	
 	private Agence agence;
 	
 	@OneToMany(mappedBy="banquier",fetch=FetchType.LAZY)

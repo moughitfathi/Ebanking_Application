@@ -46,9 +46,11 @@ public class Client extends Personne {
 		
 
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@JsonIgnore
 		private List<Compte> comptes;
 		
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@JsonIgnore
 		private List<Beneficiare> beneficiaires;
 		
 		
@@ -57,6 +59,7 @@ public class Client extends Personne {
 		
 		
 		@OneToMany(mappedBy = "client",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+		@JsonIgnore
 		private List<Virement> virements;
 		
 		//@Column(nullable = false)

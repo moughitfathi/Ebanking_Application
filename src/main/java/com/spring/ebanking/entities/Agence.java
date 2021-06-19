@@ -32,11 +32,14 @@ public class Agence {
 	private String ville;
 	@Column(nullable = false)
 	private String adresse;
-	@Column(unique = true,nullable  = false)
+	@Column(unique = true,nullable=false)
 	private String email;
-	@Column(unique = true,nullable  = false)
+	@Column(unique = true,nullable=false)
 	private String tel;
+	
+	
 	@OneToMany(mappedBy="agence",fetch=FetchType.LAZY)
+	@JsonIgnore
 	private List<Banquier>  listeBanquiers;
 	
 	@OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
@@ -47,7 +50,8 @@ public class Agence {
 	private List<Client> listeClients;
 	@ManyToOne
 	@JoinColumn(name="ID_ADMIN")
-	@JsonIgnore
+	
+
 	private Admin admin;
 
 }

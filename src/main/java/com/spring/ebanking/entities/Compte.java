@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,12 +33,15 @@ public class Compte {
 	private BigDecimal solde ;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Client client;
 	
 	@OneToMany(mappedBy = "compte",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Virement> virements;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Agence agence;
 	
 	

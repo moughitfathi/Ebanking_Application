@@ -2,6 +2,7 @@ package com.spring.ebanking.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +23,18 @@ import com.spring.ebanking.services.AgenceService;
 @CrossOrigin(origins = "http://localhost:4200")
 
 public class AgenceController {
+	@Autowired
 	AgenceService agenceservice;
 	
 	
 	
 	
 	//recuperer   les agences 
-	@GetMapping("/admin/listeagences")
+	@GetMapping("/admin	")
 	public List<Agence> getAgences(@RequestParam(name="id", required=false) Long id) throws Exception
 	{
 		return agenceservice.getAgences(id);
-	}
+	}	
 
 	//recuperer les banquiers d'une agence
 	@GetMapping("/admin/agence/{id}/banquiers")

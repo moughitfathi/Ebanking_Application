@@ -37,7 +37,7 @@ public class BanquierController {
 
 	//recuperer les banquiers
 	@GetMapping("/admin/banquiers/{id}")
-	public List<Banquier> getBanquiers(@RequestParam(name="id", required=false) Long id) throws Exception
+	public List<Banquier> getBanquiers(@PathVariable(name="id", required=false) Long id) throws Exception
 	{	
 		return  banquierservice.getBanquiers(id);
 	}

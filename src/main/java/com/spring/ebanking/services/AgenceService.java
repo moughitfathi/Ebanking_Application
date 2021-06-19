@@ -69,9 +69,11 @@ public class AgenceService {
 		}if(agenceRepo.findByTel(agence.getTel()).isPresent()) {
 			throw new Exception("Une agence avec le Tel"+agence.getTel()+" existe déjà");
 		}
-		agenceRepo.save(agence);	
+			
 		Admin admin = adminService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		agence.setAdmin(admin);	
+		System.out.println(agence.getAdmin().getUsername());
+		agenceRepo.save(agence);
  	}
 	
 	//delete agence

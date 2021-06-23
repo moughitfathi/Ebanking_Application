@@ -105,7 +105,7 @@ public void updateAdmin(Admin admin,Long id)  throws Exception{
 	DateFormat dateFormat =  new SimpleDateFormat("yyyy-mm-dd");
 	
 	
-	if(personneRepository.findByUsername(admin.getUsername()).isPresent() && !(personneRepository.findByUsername(admin.getUsername()).get().equals(adminAjour.getUsername())))
+	if(personneRepository.findByUsername(admin.getUsername()).isPresent() && !(personneRepository.findByUsername(admin.getUsername()).get().getUsername().equals(adminAjour.getUsername())))
 		throw new Exception("try with anothor Username ");
 	
 //else

@@ -30,7 +30,7 @@ public class CompteController {
 	@Autowired
 	ClientService clientService ;
 	
-		@GetMapping("/client/compte{id}")
+		@GetMapping("/client/compte/{id}")
 		public Compte getCompte(@PathVariable(name="id")Long id) throws NotFoundException {
 			
 			return compteService.getCompte(id);
@@ -46,7 +46,7 @@ public class CompteController {
 			
 		}
 		
-		@GetMapping("/banquier/compte{num}")
+		@GetMapping("/banquier/compte/{num}")
 		public Compte getByNumero(@PathVariable(name="num")int numCompte) throws NotFoundException {
 			
 			return compteService.getByNumero(numCompte);

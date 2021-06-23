@@ -30,11 +30,11 @@ public class AgenceController {
 	
 	
 	//recuperer   les agences 
-	@GetMapping("/admin/listeagences")
+	@GetMapping("/admin	")
 	public List<Agence> getAgences(@RequestParam(name="id", required=false) Long id) throws Exception
 	{
 		return agenceservice.getAgences(id);
-	}
+	}	
 
 	//recuperer les banquiers d'une agence
 	@GetMapping("/admin/agence/{id}/banquiers")

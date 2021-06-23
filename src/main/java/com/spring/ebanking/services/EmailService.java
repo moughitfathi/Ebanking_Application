@@ -55,10 +55,10 @@ public class EmailService {
 		message.setTo(a.getEmail());
 		message.setSubject("recuperation de mot de passe");
 		message.setText(
-        		"Bonjour Admin"+a.getNom()+" "+a.getPrenom()+", \n"
+        		"Bonjour Mr/Mme "+a.getNom()+" "+a.getPrenom()+", \n"
         		+"Veuillez trouver ci-dessous un récapulatif sur votre compte :\n"
         		+"\nemail : "+a.getEmail()
-        		+"\nmot de passe : "+a.getPassword()
+        		+"\nMot de passe : "+a.getPassword()
         		+"\nCordialement."
         		);
         emailSender.send(message);

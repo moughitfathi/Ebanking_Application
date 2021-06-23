@@ -33,13 +33,17 @@ public class Agence {
 	private String ville;
 	@Column(nullable = false)
 	private String adresse;
-	@Column(unique = true,nullable  = false)
+	@Column(unique = true,nullable=false)
 	private String email;
-	@Column(unique = true,nullable  = false)
+	@Column(unique = true,nullable=false)
 	private String tel;
 	
+
+	
+
 	@JsonIgnore
 	@OneToMany(mappedBy="agence",fetch=FetchType.LAZY)
+	
 	private List<Banquier>  listeBanquiers;
 	
     @JsonIgnore

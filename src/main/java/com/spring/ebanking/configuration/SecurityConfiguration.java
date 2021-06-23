@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
 		configuration.setAllowedHeaders(Arrays.asList("accept", "accept-encoding", "authorization", "content-type",
-				"dnt", "origin", "user-agent", "x-csrftoken", "x-requested-with"));
+				"dnt", "origin", "user-agent", "x-csrftoken", "x-requested-with","Access-Control-Allow-Origin"));
 
 		configuration.setAllowCredentials(true);
 

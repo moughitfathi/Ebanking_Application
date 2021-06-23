@@ -48,7 +48,7 @@ public class VirementController {
 	}
 	@PutMapping("/client/virementmultiple/{id}/confirme")
 	@ResponseStatus(HttpStatus.OK)
-	public void confirme(@PathVariable(value="id") Long id,@RequestBody String motpasse) {
+	public void confirme(@PathVariable Long id,@RequestBody String motpasse) {
 		virementMultipleService.confirmer(id, motpasse);
 	}
 

@@ -15,15 +15,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 @DiscriminatorColumn(name = "Type",length=4)
 public abstract class Virement {
 	
@@ -39,8 +42,10 @@ public abstract class Virement {
 	private BigDecimal mentant;
 	private String motif;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne@JoinColumn(name = "id_compte")
 	private Compte compte;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne@JoinColumn(name = "id_client")
 	private Client client;
 

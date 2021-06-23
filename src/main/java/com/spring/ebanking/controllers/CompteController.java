@@ -82,8 +82,8 @@ public class CompteController {
 			compteService.deleteCompte(id);
 		}
 		
-		@GetMapping("/client/compte{id}/virementmultiple")
-		List<VirementMultiple> getVirementMultiple(Long id) throws NotFoundException{
+		@GetMapping("/client/compte/{id}/virementmultiple")
+		List<VirementMultiple> getVirementMultiple(@PathVariable Long id) throws NotFoundException{
 			
 			return compteService.virementMultiples(id);
 		}

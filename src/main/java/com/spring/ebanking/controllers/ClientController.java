@@ -1,8 +1,11 @@
 package com.spring.ebanking.controllers;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,18 +23,44 @@ import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.Client;
 import com.spring.ebanking.entities.Compte;
 import com.spring.ebanking.entities.CreneauDispo;
+import com.spring.ebanking.entities.ListVwithNumCmpte;
+import com.spring.ebanking.entities.VirementMultiple;
+import com.spring.ebanking.entities.VirementMulttipleBeneficiare;
+import com.spring.ebanking.repositories.BeneficiareRepository;
+import com.spring.ebanking.repositories.VirementMultipleBenificiareRepository;
+import com.spring.ebanking.repositories.VirementMultipleRepository;
+import com.spring.ebanking.services.BeneficiareService;
 import com.spring.ebanking.services.ClientService;
+import com.spring.ebanking.services.CompteService;
+import com.spring.ebanking.services.VirementMultipleService;
 
 import javassist.NotFoundException;
+import kotlin.jvm.JvmStatic;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class ClientController {
 	
-	
+	@Autowired
+	BeneficiareRepository benerepo;
 	@Autowired
 	ClientService clientService;
+
+	@Autowired
+	CompteService compteService;
+	
+	@Autowired
+	VirementMultipleRepository virementrepo;
+	
+	@Autowired
+	VirementMultipleService vmservice;
+
+	@Autowired
+	BeneficiareService beneficiaireService ;
+	
+	@Autowired
+	VirementMultipleBenificiareRepository vms ;
 	
 	
 	@GetMapping("/banquier/client/{id}")
@@ -109,6 +138,59 @@ public class ClientController {
 		public Client getClientByUsername(@PathVariable String u) throws Exception {
 			
 			return clientService.getByUsername(u);
+		}
+		
+		@GetMapping("/client/beneficiaire/{num}")
+		public Beneficiare getBeneficiaireByNumeroCompte(@PathVariable int num) throws NotFoundException {
+			
+			 Compte compte= compteService.getByNumero(num);
+			Client client=compte.getClient();
+			Beneficiare beneficiaire=new Beneficiare();
+			beneficiaire.setNom(client.getNom());
+			beneficiaire.setPrenom(client.getPrenom());
+			beneficiaire.setNumeroDecompte(num);
+			
+			benerepo.save(beneficiaire);
+			return beneficiaire;
+			
+			
+			
+		}
+		@PostMapping("client/effectuervirement/{id}")
+		public void effectuervirement(@RequestBody List<ListVwithNumCmpte> list,@PathVariable Long id ) throws NotFoundException {
+			Compte c=compteService.getCompte(id);
+			Client cl=c.getClient();
+			VirementMultiple vm=new VirementMultiple();
+			BigDecimal sommeTotal = new BigDecimal(0) ;
+			List<VirementMulttipleBeneficiare> liste1= new ArrayList<VirementMulttipleBeneficiare>();
+			Beneficiare bene= new Beneficiare();
+			for(ListVwithNumCmpte v:list) {
+				VirementMulttipleBeneficiare vrmentbene= new VirementMulttipleBeneficiare();
+
+				bene = getBeneficiaireByNumeroCompte(v.getNumCompte());
+				bene.setClient(cl);
+				vrmentbene.setBeneficiare(bene);
+				vrmentbene.setMontant(v.getSolde());
+				sommeTotal = sommeTotal.add(v.getSolde());
+				
+				liste1.add(vrmentbene); 
+			}
+			System.out.println(liste1);
+			
+			int nbrebene= liste1.size	();
+			System.out.println(nbrebene);
+			
+			vm.setClient(cl);
+			vm.setCompte(c);
+			vm.setNombreDeBeneficiare(nbrebene);
+			vm.setVirementMultipleBeneficiare(liste1);
+			vm.setDateCreation(new Date());
+			vm.setDateExecution(new Date());
+			vm.setMentant(sommeTotal);
+			
+			
+			vmservice.EffectuerVirmentmultiple(vm);
+			
 		}
 		
 }

@@ -1,5 +1,7 @@
 package com.spring.ebanking.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,15 @@ public class BeneficiareService {
 			}else {
 				benrepo.delete(bene);
 			}
+			
+		}
+		
+		public Optional<Beneficiare> getBeneficiaireByNumeroCompte(int num) {
+			
+			Optional<Beneficiare> beneficiare = benrepo.findByNumeroDecompte(num);
+			
+			return beneficiare;
+			
 			
 		}
 	

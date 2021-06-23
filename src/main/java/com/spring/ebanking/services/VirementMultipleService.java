@@ -10,6 +10,7 @@ import com.spring.ebanking.entities.Beneficiare;
 import com.spring.ebanking.entities.VirementMultiple;
 import com.spring.ebanking.entities.VirementMulttipleBeneficiare;
 import com.spring.ebanking.repositories.BeneficiareRepository;
+import com.spring.ebanking.repositories.ClientRepository;
 import com.spring.ebanking.repositories.VirementMultipleBenificiareRepository;
 import com.spring.ebanking.repositories.VirementMultipleRepository;
 
@@ -23,6 +24,8 @@ public class VirementMultipleService {
 		VirementMultipleBenificiareRepository virMulBenRepo;
 		@Autowired
 		BeneficiareRepository benRepo;
+		@Autowired
+		ClientRepository clieRepository ;
 		
 		
 		public VirementMultiple getVirementMultiple(Long id) throws NotFoundException {
@@ -69,7 +72,7 @@ public class VirementMultipleService {
 			Long idLong= null;
 			List<VirementMulttipleBeneficiare> list=new ArrayList<VirementMulttipleBeneficiare>();
 			virMulRepo.save(virmentmul);
-			 
+System.out.println(virmentmul.getNombreDeBeneficiare());			 
 			 for (int i=0;i<virmentmul.getNombreDeBeneficiare();i++) {
 				 
 				 	virementmulBeneficiare = virmentmul.getVirementMultipleBeneficiare().get(i);
@@ -82,11 +85,10 @@ public class VirementMultipleService {
 						throw new NotFoundException("le benificiaire specifie introuvable! ");
 					}
 				 	virementmulBeneficiare.setVirementMultiple(virmentmul);
-				 	virMulBenRepo.save(virementmulBeneficiare);
 				 	list.add(virementmulBeneficiare);
 				 	
-				 	
 			}
+			virMulBenRepo.saveAll(virmentmul.getVirementMultipleBeneficiare());
 			 virmentmul.setVirementMultipleBeneficiare(list);
 			 
 			 virMulRepo.save(virmentmul);

@@ -12,11 +12,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 @Entity
 @Data@AllArgsConstructor@NoArgsConstructor
-
+@EqualsAndHashCode(exclude = "virementMultipleBeneficiare")
 @DiscriminatorValue("MULT")
+@ToString(exclude = {"virementMultipleBeneficiare"} )
+
 public class VirementMultiple  extends Virement{
 	
 	@Column(nullable = false)
@@ -26,6 +30,8 @@ public class VirementMultiple  extends Virement{
 	
     @JsonIgnore
 	@OneToMany(mappedBy = "virementMultiple")
+
 	private List<VirementMulttipleBeneficiare> virementMultipleBeneficiare;
 
 }
+	

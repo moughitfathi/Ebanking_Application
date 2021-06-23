@@ -20,11 +20,13 @@ import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 
 @Data @NoArgsConstructor @AllArgsConstructor 
 @Entity
+@ToString(exclude = {"comptes","beneficiaires","rendezVous","virements"})
 public class Client extends Personne {
 	
 	

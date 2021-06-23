@@ -19,6 +19,7 @@ import com.spring.ebanking.entities.CreneauDispo;
 import com.spring.ebanking.entities.Personne;
 import com.spring.ebanking.entities.Role;
 import com.spring.ebanking.repositories.BanquierRepository;
+import com.spring.ebanking.repositories.ClientRepository;
 import com.spring.ebanking.repositories.CreneauDispoRepository;
 import com.spring.ebanking.repositories.PersonneRepository;
 import com.spring.ebanking.repositories.RoleRepository;
@@ -30,6 +31,8 @@ public class BanquierService {
 	PersonneRepository personneRepository;
 	@Autowired
 	BanquierRepository banquierRepository;
+	@Autowired
+	ClientRepository clientRepository;
 	@Autowired
 	RoleRepository roleRepository;
 	@Autowired
@@ -190,6 +193,7 @@ public class BanquierService {
 	public void Sus_Act_client(Client client) {
 		if(client.isActive()) client.setActive(false);
 		else client.setActive(true);
+		clientRepository.save(client);
 	}
 	
 	public List<CreneauDispo> getMyCreneaux() throws Exception{

@@ -21,8 +21,7 @@ import com.spring.ebanking.services.CompteService;
 import javassist.NotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
-
+@CrossOrigin(origins = "*")
 public class CompteController {
 	
 	@Autowired

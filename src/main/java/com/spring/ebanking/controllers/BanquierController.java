@@ -27,7 +27,7 @@ import com.spring.ebanking.services.ClientService;
 import javassist.NotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 
 public class BanquierController {
 	@Autowired

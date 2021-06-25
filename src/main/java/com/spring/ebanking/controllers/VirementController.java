@@ -19,7 +19,7 @@ import com.spring.ebanking.entities.VirementMulttipleBeneficiare;
 import com.spring.ebanking.services.VirementMultipleService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 
 public class VirementController {
 

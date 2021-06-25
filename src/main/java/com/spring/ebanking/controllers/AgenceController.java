@@ -20,7 +20,7 @@ import com.spring.ebanking.services.AgenceService;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*")
 
 public class AgenceController {
 	@Autowired
@@ -30,7 +30,7 @@ public class AgenceController {
 	
 	
 	//recuperer   les agences 
-	@GetMapping("/admin	")
+	@GetMapping("/admin/listeagences")
 	public List<Agence> getAgences(@RequestParam(name="id", required=false) Long id) throws Exception
 	{
 		return agenceservice.getAgences(id);

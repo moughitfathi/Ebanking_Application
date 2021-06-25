@@ -38,7 +38,7 @@ import javassist.NotFoundException;
 import kotlin.jvm.JvmStatic;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class ClientController {
 	

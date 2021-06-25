@@ -22,7 +22,7 @@ import com.spring.ebanking.services.AdminService;
 import javassist.NotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 
 public class AdminController {
 
